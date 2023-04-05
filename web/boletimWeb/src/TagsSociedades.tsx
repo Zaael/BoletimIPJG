@@ -1,22 +1,24 @@
-import { HStack, Tag, TagLabel } from "@chakra-ui/react";
+import { HStack, List, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 
-export function TagsSociedades(props: {
-    Lista: [{ sigla: string, cor: string }]
-}) {
-    const tags = props.Lista.map(item => {
-        <Tag
-            size={'sm'}
-            key={item.sigla}
-            variant='outline'
-            colorScheme={item.cor}
-            borderRadius='full'>
-            <TagLabel>{item.sigla}</TagLabel>
-        </Tag>
-
-    })
-    return (
-        <HStack>
-            {tags}
+const Lista = [
+    { sigla: 'UMP', cor: 'purple' },
+    { sigla: 'UPA', cor: 'green' },
+    { sigla: 'SAF', cor: 'pink' },
+    { sigla: 'Cultos', cor: 'blue' },
+    { sigla: 'UPH', cor: 'orange' }
+];
+export default function TagsSociedades() {
+    return(
+        <HStack spacing={4}>
+            {Lista.map((sigla) => (
+                <Tag                    
+                    key={sigla.sigla}                    
+                    variant='outline'
+                    colorScheme={sigla.cor}>
+                    <TagLabel>{sigla.sigla}</TagLabel>
+                    <TagCloseButton />
+                </Tag>
+            ))}
         </HStack>
     );
 }
