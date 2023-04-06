@@ -3,7 +3,7 @@ import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
 export function PesquisaAtividade() {
     return (
-        <InputGroup w={'25%'} >
+        <InputGroup w={'50%'} >
             <InputLeftElement
                 pointerEvents='none'
                 children={<SearchIcon color='gray.300' />}

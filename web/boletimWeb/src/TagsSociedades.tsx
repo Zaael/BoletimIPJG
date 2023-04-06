@@ -1,24 +1,37 @@
-import { HStack, List, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import { Button, HStack, } from "@chakra-ui/react";
+import { useState } from "react";
 
 const Lista = [
+    { sigla: 'Cultos', cor: 'blue' },
+    { sigla: 'SAF', cor: 'pink' },
     { sigla: 'UMP', cor: 'purple' },
     { sigla: 'UPA', cor: 'green' },
-    { sigla: 'SAF', cor: 'pink' },
-    { sigla: 'Cultos', cor: 'blue' },
-    { sigla: 'UPH', cor: 'orange' }
+    { sigla: 'UCP', cor: 'orange' },
+    { sigla: 'Estudos', cor: 'teal' },   
 ];
 export default function TagsSociedades() {
-    return(
+    return (
         <HStack spacing={4}>
             {Lista.map((sigla) => (
-                <Tag                    
-                    key={sigla.sigla}                    
-                    variant='outline'
-                    colorScheme={sigla.cor}>
-                    <TagLabel>{sigla.sigla}</TagLabel>
-                    <TagCloseButton />
-                </Tag>
+                <TagSocidedadeInterna sigla={sigla.sigla} cor={sigla.cor}></TagSocidedadeInterna>
             ))}
         </HStack>
     );
+}
+
+function TagSocidedadeInterna(props: { sigla: string, cor: string }) {
+    const [select, setSelect] = useState(false);
+    
+    function toggleVariantTag(){
+        setSelect(!select);
+    }
+
+    return <Button onClick={toggleVariantTag}
+        key={props.sigla}
+        size={'sm'}
+        variant= {select? 'solid' : 'outline'}        
+        borderRadius={'full'}
+        colorScheme={props.cor}>
+        {props.sigla}
+    </Button>
 }
