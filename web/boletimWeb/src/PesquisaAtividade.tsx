@@ -6,14 +6,14 @@ import { useState } from "react";
 
 export function PesquisaAtividade(props: {
   lista: {
-    Name: string;
-    DataHora: Date;
-    Local: string;
-    Preletor: string;
-    Banda: string;
+    name: string;
+    dataHora: Date;
+    local: string;
+    preletor: string;
+    banda: string;
     SantaCeia: boolean;
     Logo: string;
-    SociedadeInterna: { sigla: string; cor: string };
+    sociedadeInterna: string //{ sigla: string; cor: string };
   }[];
 }) {
   const [filtro, setFiltro] = useState('');
@@ -21,12 +21,12 @@ export function PesquisaAtividade(props: {
 
 
   var listaFiltrada = filtro.length > 1 ? props.lista
-  .filter(element => element.Name.toString().toLowerCase()
+  .filter(element => element.name.toString().toLowerCase()
   .includes(filtro.toLowerCase())) 
     : props.lista;
 
   listaFiltrada = filtroTag.length > 2 ? 
-  listaFiltrada.filter(element => element.SociedadeInterna.sigla.match(filtroTag))
+  listaFiltrada.filter(element => element.sociedadeInterna.match(filtroTag))
     : listaFiltrada;
 
   return (

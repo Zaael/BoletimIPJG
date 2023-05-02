@@ -1,33 +1,42 @@
 const dados = [];
   dados.push({
-    Name: 'Culto Matutino',
-    DataHora: new Date(2023, 2, 12, 9, 30),
-    Local: 'Igreja',
-    Preletor: 'Rev. Jair',
-    Banda: 'MAP',
+    name: 'Culto Matutino',
+    dataHora: new Date(2023, 2, 12, 9, 30),
+    local: 'Igreja',
+    preletor: 'Rev. Jair',
+    banda: 'MAP',
     SantaCeia: false,
     Logo: '../ump.png',
-    SociedadeInterna: {sigla: 'Cultos', cor: 'blue'}
+    sociedadeInterna: 'Cultos' //{sigla: 'Cultos', cor: 'blue'}
   })
   dados.push({
-    Name: 'Culto Vespertino',
-    DataHora: new Date(2023, 2, 12, 9, 30),
-    Local: 'Igreja',
-    Preletor: 'Rev. Jair',
-    Banda: 'Second',
+    name: 'Culto Vespertino',
+    dataHora: new Date(2023, 2, 12, 9, 30),
+    local: 'Igreja',
+    preletor: 'Rev. Jair',
+    banda: 'Second',
     SantaCeia: true,
     Logo: '../ump.png',
-    SociedadeInterna: {sigla: 'Cultos', cor: 'blue'}
+    sociedadeInterna: 'Cultos' //{sigla: 'Cultos', cor: 'blue'}
   })
   dados.push({
-    Name: 'Estudo UMP - Livro cap 8',
-    DataHora: new Date(2023, 2, 11, 9, 30),
-    Local: 'Nice e Edevaldo',
-    Preletor: 'Presb. Douglas',
-    Banda: 'Pedro',
+    name: 'Estudo UMP - Livro cap 8',
+    dataHora: new Date(2023, 2, 11, 9, 30),
+    local: 'Nice e Edevaldo',
+    preletor: 'Presb. Douglas',
+    banda: 'Pedro',
     SantaCeia: false,
     Logo: '../ump.png',
-    SociedadeInterna: {sigla: 'UMP', cor: 'purple'}
+    sociedadeInterna: 'UMP' //{sigla: 'UMP', cor: 'purple'}
   }) 
 
-  export default dados;
+  const Lista = [
+    { sigla: 'Cultos', cor: 'blue' },
+    { sigla: 'SAF', cor: 'pink' },
+    { sigla: 'UMP', cor: 'purple' },
+    { sigla: 'UPA', cor: 'green' },
+    { sigla: 'UCP', cor: 'orange' },
+    { sigla: 'Estudos', cor: 'teal' },   
+];
+
+  export {dados as default,  Lista};

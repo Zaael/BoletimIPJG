@@ -9,14 +9,14 @@ import { CardAtividadeButtons } from './CardAtividadeButtons';
 export function CardAtividade(props: {
     lista:
     {
-        Name: string,
-        DataHora: Date,
-        Local: string,
-        Preletor: string,
-        Banda: string,
+        name: string,
+        dataHora: Date,
+        local: string,
+        preletor: string,
+        banda: string,
         SantaCeia: boolean,
         Logo: string,
-        SociedadeInterna: { sigla: string, cor: string }
+        sociedadeInterna: string//{ sigla: string, cor: string }
     }[],
 }) {
     moment.locale('pt-br');
@@ -31,12 +31,12 @@ export function CardAtividade(props: {
     });
 
     const cards = props.lista.map((atividade) => (
-        <Box w={'26rem'} key={atividade.Name}>
+        <Box w={'26rem'} key={atividade.name}>
             <Card direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'
                 m={"1.5"}
-                p={"1"} borderColor={atividade.SociedadeInterna.cor.concat('.200')}
+                p={"1"}
             >
                 <Image objectFit='cover'
                     src={atividade.Logo}
@@ -44,17 +44,17 @@ export function CardAtividade(props: {
                     maxW={{ base: '100%', sm: '24' }} ></Image>
                 <Stack>
                     <CardBody>
-                        <Text fontSize='md'>{atividade.Name} {atividade.SantaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
+                        <Text fontSize='md'>{atividade.name} {atividade.SantaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
                         <Flex>
-                            <Text fontSize='sm'>{moment(atividade.DataHora).format("DD") + "/" + moment(atividade.DataHora).format("MM") + " - " + moment(atividade.DataHora).format("dddd")}</Text>
+                            <Text fontSize='sm'>{moment(atividade.dataHora).format("DD") + "/" + moment(atividade.dataHora).format("MM") + " - " + moment(atividade.dataHora).format("dddd")}</Text>
                             <Spacer />
-                            <Text fontSize='sm'>{moment(atividade.DataHora).format("HH:mm")}</Text>
+                            <Text fontSize='sm'>{moment(atividade.dataHora).format("HH:mm")}</Text>
                         </Flex>
                         <Divider m={"2"}></Divider>
                         <Wrap spacing={'1rem'}>
-                            {atividade.Local ? <CardAtividadeItem Item={atividade.Local} Tipo="Local"></CardAtividadeItem> : ""}
-                            {atividade.Preletor ? <CardAtividadeItem Item={atividade.Preletor} Tipo="Preletor"></CardAtividadeItem> : ""}
-                            {atividade.Banda ? <CardAtividadeItem Item={atividade.Banda} Tipo="Banda"></CardAtividadeItem> : ""}
+                            {atividade.local ? <CardAtividadeItem Item={atividade.local} Tipo="Local"></CardAtividadeItem> : ""}
+                            {atividade.preletor ? <CardAtividadeItem Item={atividade.preletor} Tipo="Preletor"></CardAtividadeItem> : ""}
+                            {atividade.banda ? <CardAtividadeItem Item={atividade.banda} Tipo="Banda"></CardAtividadeItem> : ""}
                         </Wrap>
                     </CardBody>
                     <CardAtividadeButtons></CardAtividadeButtons>
