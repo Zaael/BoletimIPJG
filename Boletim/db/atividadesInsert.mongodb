@@ -4,14 +4,52 @@
 // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
 
 // Select the database to use.
-use('Boletim');
+use("Boletim");
 
-db.atividades.insertMany(
-    [
-        {_id: "1", 'Descricao': 'Estudo de Apocalipse', 'DataHora': new Date('2023-03-22T20:00:00Z'), 'Local': 'Igreja', 'SociedadeInterna':'Todas'},
-        {_id: "2", 'Descricao': 'Culto Matutino', 'DataHora': new Date('2023-03-19T20:00:00Z'), 'Local': 'Igreja', 'SociedadeInterna':'Todas'},
-        {_id: "3", 'Descricao': 'Culto Verpertino', 'DataHora': new Date('2023-03-19T20:00:00Z'), 'Local': 'Igreja', 'SociedadeInterna':'Todas'},
-        {_id: "4", 'Descricao': 'Encontro Mocidade', 'DataHora': new Date('2023-03-25T20:00:00Z'), 'Local': 'Igreja', 'SociedadeInterna':'UMP'},
-        {_id: "5", 'Descricao': 'Encontro SAF', 'DataHora': new Date('2023-03-25T20:00:00Z'), 'Local': 'Igreja', 'SociedadeInterna':'SAF'},
-    ]
-)
+db.atividades.insertMany([
+  {
+    _id: "1",
+    Descricao: "Estudo de Apocalipse",
+    DataHora: new Date("2023-03-22T20:00:00Z"),
+    Local: "Igreja",
+    Preletor: "Rev. Jair",
+    Banda:"MAP",
+    SociedadeInterna: "Todas",
+  },
+  {
+    _id: "2",
+    Descricao: "Culto Matutino",
+    DataHora: new Date("2023-03-19T20:00:00Z"),
+    Local: "Igreja",
+    Preletor: "Rev. Jair",
+    Banda:"MAP",
+    SociedadeInterna: "Todas",
+  },
+  {
+    _id: "3",
+    Descricao: "Culto Verpertino",
+    DataHora: new Date("2023-03-19T20:00:00Z"),
+    Local: "Igreja",
+    Preletor: "Rev. Jair",
+    Banda:"MAP",
+    SociedadeInterna: "Todas",
+  },
+  {
+    _id: "4",
+    Descricao: "Encontro Mocidade",
+    DataHora: new Date("2023-03-25T20:00:00Z"),
+    Local: "Igreja",
+    Preletor: "Rev. Jair",
+    Banda:"MAP",
+    SociedadeInterna: "UMP",
+  },
+  {
+    _id: "5",
+    Descricao: "Encontro SAF",
+    DataHora: new Date("2023-03-25T20:00:00Z"),
+    Local: "Igreja",
+    Preletor: "Rev. Jair",
+    Banda:"MAP",
+    SociedadeInterna: "SAF",
+  },
+]);

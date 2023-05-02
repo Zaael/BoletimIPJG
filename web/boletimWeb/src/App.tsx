@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Button, Text, Image, Card, Center, Container, Divider, Flex, Heading, HStack, LinkBox, Stack, VStack, Tag, TagCloseButton, TagLabel, Spacer, useColorMode, IconButton, useDisclosure, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
 import { PesquisaAtividade } from './PesquisaAtividade';
 import { AddIcon } from '@chakra-ui/icons';
 import { FaMoon, FaSun } from "react-icons/fa";
-import dados from './dados';
+import dados, { GetDadosRepo } from './dados';
 import { ModalNovaAtividade } from './NovaAtividade';
 
 function App() {
   const { toggleColorMode, colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dadosRepo = GetDadosRepo();
+  console.log(dadosRepo);
 
   return (
     <Box p={10} marginLeft={'auto'} marginRight={'auto'} w={'100%'} maxW={'container.lg'} alignItems={'center'}>

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export function PesquisaAtividade(props: {
   lista: {
-    name: string;
+    descricao: string;
     dataHora: Date;
     local: string;
     preletor: string;
@@ -21,7 +21,7 @@ export function PesquisaAtividade(props: {
 
 
   var listaFiltrada = filtro.length > 1 ? props.lista
-  .filter(element => element.name.toString().toLowerCase()
+  .filter(element => element.descricao.toString().toLowerCase()
   .includes(filtro.toLowerCase())) 
     : props.lista;
 

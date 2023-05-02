@@ -15,6 +15,8 @@ namespace Boletim.Models
         public string? Descricao { get; set; }
         public DateTime DataHora { get; set; }
         public string? Local { get; set; }
+        public string? Preletor { get; set; }
+        public string? Banda { get; set; }
         public string? SociedadeInterna { get; set; }
     }
 }

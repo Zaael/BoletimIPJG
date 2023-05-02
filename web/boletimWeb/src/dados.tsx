@@ -1,6 +1,8 @@
+import { useEffect } from "react";
+
 const dados = [];
   dados.push({
-    name: 'Culto Matutino',
+    descricao: 'Culto Matutino',
     dataHora: new Date(2023, 2, 12, 9, 30),
     local: 'Igreja',
     preletor: 'Rev. Jair',
@@ -10,7 +12,7 @@ const dados = [];
     sociedadeInterna: 'Cultos' //{sigla: 'Cultos', cor: 'blue'}
   })
   dados.push({
-    name: 'Culto Vespertino',
+    descricao: 'Culto Vespertino',
     dataHora: new Date(2023, 2, 12, 9, 30),
     local: 'Igreja',
     preletor: 'Rev. Jair',
@@ -20,7 +22,7 @@ const dados = [];
     sociedadeInterna: 'Cultos' //{sigla: 'Cultos', cor: 'blue'}
   })
   dados.push({
-    name: 'Estudo UMP - Livro cap 8',
+    descricao: 'Estudo UMP - Livro cap 8',
     dataHora: new Date(2023, 2, 11, 9, 30),
     local: 'Nice e Edevaldo',
     preletor: 'Presb. Douglas',
@@ -39,4 +41,16 @@ const dados = [];
     { sigla: 'Estudos', cor: 'teal' },   
 ];
 
-  export {dados as default,  Lista};
+function GetDadosRepo(){
+  useEffect(()=> {
+    async function carregaDados() {
+      const resposta = await fetch('http://localhost:5183/api/Atividade/');
+      const dados = await resposta.json();
+      console.log(dados);
+      return dados;
+    }
+    carregaDados();
+  }, []);
+}
+
+  export {dados as default,  Lista, GetDadosRepo};

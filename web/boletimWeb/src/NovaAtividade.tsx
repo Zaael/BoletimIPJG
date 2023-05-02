@@ -69,13 +69,13 @@ export function NovaAtividade() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Wrap spacing="30px">
         <WrapItem>
-          <FormControl isInvalid={errors.name}>
-            <FormLabel htmlFor='name'>Descrição</FormLabel>
-            <Input id="name" variant="flushed" placeholder="Descrição" {...register('name', {
+          <FormControl isInvalid={errors.descricao}>
+            <FormLabel htmlFor='descricao'>Descrição</FormLabel>
+            <Input id="descricao" variant="flushed" placeholder="Descrição" {...register('descricao', {
               required: 'Preenhca uma descrição',
             })} />
             <FormErrorMessage>
-              {errors.name?.message}
+              {errors.descricao?.message}
             </FormErrorMessage>
           </FormControl>
         </WrapItem>

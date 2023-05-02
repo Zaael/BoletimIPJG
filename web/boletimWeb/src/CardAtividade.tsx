@@ -9,7 +9,7 @@ import { CardAtividadeButtons } from './CardAtividadeButtons';
 export function CardAtividade(props: {
     lista:
     {
-        name: string,
+        descricao: string,
         dataHora: Date,
         local: string,
         preletor: string,
@@ -31,7 +31,7 @@ export function CardAtividade(props: {
     });
 
     const cards = props.lista.map((atividade) => (
-        <Box w={'26rem'} key={atividade.name}>
+        <Box w={'26rem'} key={atividade.descricao}>
             <Card direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'
@@ -44,7 +44,7 @@ export function CardAtividade(props: {
                     maxW={{ base: '100%', sm: '24' }} ></Image>
                 <Stack>
                     <CardBody>
-                        <Text fontSize='md'>{atividade.name} {atividade.SantaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
+                        <Text fontSize='md'>{atividade.descricao} {atividade.SantaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
                         <Flex>
                             <Text fontSize='sm'>{moment(atividade.dataHora).format("DD") + "/" + moment(atividade.dataHora).format("MM") + " - " + moment(atividade.dataHora).format("dddd")}</Text>
                             <Spacer />
