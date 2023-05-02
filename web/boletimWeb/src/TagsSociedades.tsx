@@ -9,29 +9,34 @@ const Lista = [
     { sigla: 'UCP', cor: 'orange' },
     { sigla: 'Estudos', cor: 'teal' },   
 ];
-export default function TagsSociedades() {
+
+
+export default function TagsSociedades(props:{setFiltroTag:Function}) {
     return (
         <HStack spacing={4}>
             {Lista.map((sigla) => (
-                <TagSocidedadeInterna sigla={sigla.sigla} cor={sigla.cor}></TagSocidedadeInterna>
+                <TagSocidedadeInterna sigla={sigla.sigla} cor={sigla.cor} setFiltroTag={props.setFiltroTag} key={sigla.sigla}></TagSocidedadeInterna>
             ))}
         </HStack>
     );
 }
 
-function TagSocidedadeInterna(props: { sigla: string, cor: string }) {
+function TagSocidedadeInterna(props: { sigla: string, cor: string, setFiltroTag: Function }) {
     const [select, setSelect] = useState(false);
     
-    function toggleVariantTag(){
-        setSelect(!select);
+    function toggleVariantTag(e:any){
+        var selecionado = !select;
+        setSelect(selecionado);
+        selecionado? props.setFiltroTag(e) : props.setFiltroTag('');
     }
 
-    return <Button onClick={toggleVariantTag}
+    return <Button onClick={(e) => toggleVariantTag(e.currentTarget.value)}
         key={props.sigla}
         size={'sm'}
-        variant= {select? 'solid' : 'outline'}        
+        variant= {select? 'solid' : 'outline'}
         borderRadius={'full'}
-        colorScheme={props.cor}>
+        colorScheme={props.cor}
+        value={props.sigla}>
         {props.sigla}
     </Button>
 }

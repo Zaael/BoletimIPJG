@@ -31,7 +31,7 @@ export function CardAtividade(props: {
     });
 
     const cards = props.lista.map((atividade) => (
-        <Box w={'26rem'}>
+        <Box w={'26rem'} key={atividade.Name}>
             <Card direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'
@@ -46,7 +46,7 @@ export function CardAtividade(props: {
                     <CardBody>
                         <Text fontSize='md'>{atividade.Name} {atividade.SantaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
                         <Flex>
-                            <Text fontSize='sm'>{moment(atividade.DataHora).format("DD") + "|" + moment(atividade.DataHora).format("MMM") + " - " + moment(atividade.DataHora).format("dddd")}</Text>
+                            <Text fontSize='sm'>{moment(atividade.DataHora).format("DD") + "/" + moment(atividade.DataHora).format("MM") + " - " + moment(atividade.DataHora).format("dddd")}</Text>
                             <Spacer />
                             <Text fontSize='sm'>{moment(atividade.DataHora).format("HH:mm")}</Text>
                         </Flex>
@@ -64,7 +64,7 @@ export function CardAtividade(props: {
     ));
     
     return (
-        <Box>
+        <Box overflow={'auto'} h={'2xl'}>
             {cards}
         </Box>
     )
