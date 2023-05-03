@@ -1,6 +1,18 @@
+import { string } from "prop-types";
 import { useEffect } from "react";
 
-const dados = [];
+let dados: {
+  descricao: string;
+  dataHora: Date;
+  local: string;
+  preletor: string;
+  banda: string;
+  SantaCeia: boolean;
+  Logo: string;
+  sociedadeInterna: string //{ sigla: string; cor: string };
+}[];
+dados = [];
+
   dados.push({
     descricao: 'Culto Matutino',
     dataHora: new Date(2023, 2, 12, 9, 30),

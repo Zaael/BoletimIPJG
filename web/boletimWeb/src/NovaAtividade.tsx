@@ -69,62 +69,62 @@ export function NovaAtividade() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Wrap spacing="30px">
         <WrapItem>
-          <FormControl isInvalid={errors.descricao}>
+          <FormControl isInvalid={errors.descricao? true : false}>
             <FormLabel htmlFor='descricao'>Descrição</FormLabel>
             <Input id="descricao" variant="flushed" placeholder="Descrição" {...register('descricao', {
-              required: 'Preenhca uma descrição',
+              required: 'Preenhca uma descrição'
             })} />
             <FormErrorMessage>
-              {errors.descricao?.message}
+              <span>{errors.descricao?.message?.toString()}</span>
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
         <WrapItem>
-          <FormControl isInvalid={errors.dataHora}>
+          <FormControl isInvalid={errors.dataHora? true : false}>
             <FormLabel htmlFor='dataHora'>Data e Hora</FormLabel>
             <Input id="dataHora" variant="flushed" type="datetime-local" placeholder="Data e Hora" {...register('dataHora', {
               required: 'Preenhca uma data e horário',
             })} />
             <FormErrorMessage>
-              {errors.dataHora?.message}
+              <span>{errors.dataHora?.message?.toString()}</span>
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
         <WrapItem>
-          <FormControl isInvalid={errors.local}>
+          <FormControl isInvalid={errors.local? true : false}>
             <FormLabel htmlFor='local'>Local</FormLabel>
             <Input id="local" variant="flushed" placeholder="Local" {...register('local', {
               required: 'Preenhca o local',
             })} />
             <FormErrorMessage>
-              {errors.local?.message}
+              <span>{errors.local?.message?.toString()}</span>
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
         <WrapItem>
-          <FormControl isInvalid={errors.preletor}>
+          <FormControl isInvalid={errors.preletor? true : false}>
             <FormLabel htmlFor='preletor'>Preletor</FormLabel>
             <Input id="preletor" variant="flushed" placeholder="preletor" {...register('preletor', {
               required: 'Preenhca o preletor',
             })} />
             <FormErrorMessage>
-              {errors.preletor?.message}
+            <span>{errors.preletor?.message?.toString()}</span>
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
         <WrapItem>
-          <FormControl isInvalid={errors.banda}>
+          <FormControl isInvalid={errors.banda? true : false}>
             <FormLabel htmlFor='banda'>Banda</FormLabel>
             <Input id="banda" variant="flushed" placeholder="banda" {...register('banda', {
               required: 'Preenhca o banda',
             })} />
             <FormErrorMessage>
-              {errors.banda?.message}
+              <span>{errors.banda?.message?.toString()}</span>
             </FormErrorMessage>
           </FormControl>
         </WrapItem>
         <WrapItem>
-          <FormControl isInvalid={errors.sociedadeInterna}>
+          <FormControl isInvalid={errors.sociedadeInterna?  true : false}>
             <FormLabel htmlFor='sociedadeInterna'>Sociedade Interna</FormLabel>
             <Select id="sociedadeInterna" variant="flushed" placeholder="Selecione..." {...register('sociedadeInterna', {
               required: 'Preenhca o sociedadeInterna',
@@ -141,7 +141,7 @@ export function NovaAtividade() {
               <option value='Todas'>Todas</option> */}
             </Select>
             <FormErrorMessage>
-              {errors.sociedadeInterna?.message}
+              <span>{errors.sociedadeInterna?.message?.toString()}</span>
             </FormErrorMessage>
           </FormControl>
         </WrapItem>

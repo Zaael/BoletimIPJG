@@ -8,16 +8,16 @@ import { ModalNovaAtividade } from './NovaAtividade';
 import { bool, string } from 'prop-types';
 
 
-lista: {
-    descricao: string;
-    dataHora: Date;
-    local: string;
-    preletor: string;
-    banda: string;
-    SantaCeia: bool;
-    Logo: string;
-    sociedadeInterna: string //{ sigla: string; cor: string };
-}[];
+// const lista: {
+//     descricao: string;
+//     dataHora: Date;
+//     local: string;
+//     preletor: string;
+//     banda: string;
+//     SantaCeia: bool;
+//     Logo: string;
+//     sociedadeInterna: string //{ sigla: string; cor: string };
+// }[];
 
 function App() {
   const { toggleColorMode, colorMode } = useColorMode();
