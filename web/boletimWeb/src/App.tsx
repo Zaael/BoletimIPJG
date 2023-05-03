@@ -5,6 +5,19 @@ import { AddIcon } from '@chakra-ui/icons';
 import { FaMoon, FaSun } from "react-icons/fa";
 import dados, { GetDadosRepo } from './dados';
 import { ModalNovaAtividade } from './NovaAtividade';
+import { bool, string } from 'prop-types';
+
+
+lista: {
+    descricao: string;
+    dataHora: Date;
+    local: string;
+    preletor: string;
+    banda: string;
+    SantaCeia: bool;
+    Logo: string;
+    sociedadeInterna: string //{ sigla: string; cor: string };
+}[];
 
 function App() {
   const { toggleColorMode, colorMode } = useColorMode();
