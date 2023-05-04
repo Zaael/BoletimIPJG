@@ -3,18 +3,10 @@ import { Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
 import TagsSociedades from "./TagsSociedades";
 import { CardAtividade } from "./CardAtividade";
 import { useState } from "react";
+import { atividade } from "./types/atividade";
 
 export function PesquisaAtividade(props: {
-  lista: {
-    descricao: string;
-    dataHora: Date;
-    local: string;
-    preletor: string;
-    banda: string;
-    SantaCeia: boolean;
-    Logo: string;
-    sociedadeInterna: string //{ sigla: string; cor: string };
-  }[];
+  lista: atividade[];
 }) {
   const [filtro, setFiltro] = useState('');
   const [filtroTag, setFiltroTag] = useState('');
@@ -26,7 +18,7 @@ export function PesquisaAtividade(props: {
     : props.lista;
 
   listaFiltrada = filtroTag.length > 2 ? 
-  listaFiltrada.filter(element => element.sociedadeInterna.match(filtroTag))
+  listaFiltrada.filter(element => element.sociedadeInterna?.match(filtroTag))
     : listaFiltrada;
 
   return (

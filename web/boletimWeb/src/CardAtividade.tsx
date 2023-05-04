@@ -1,23 +1,13 @@
-import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useState } from 'react'
-import { Box, Card, CardBody, Center, Container, Heading, Text, Stack, Flex, Spacer, PropsOf, Wrap, WrapItem, Divider, Button, ButtonGroup } from '@chakra-ui/react'
+import { Box, Card, CardBody,Text, Stack, Flex, Spacer, Wrap, Divider} from '@chakra-ui/react'
 import { Image } from '@chakra-ui/react'
 import moment from 'moment'
 import { CardAtividadeItem } from './CardAtividadeItem';
 import { CardAtividadeButtons } from './CardAtividadeButtons';
+import { atividade } from './types/atividade';
 
 
 export function CardAtividade(props: {
-    lista:
-    {
-        descricao: string,
-        dataHora: Date,
-        local: string,
-        preletor: string,
-        banda: string,
-        SantaCeia: boolean,
-        Logo: string,
-        sociedadeInterna: string//{ sigla: string, cor: string }
-    }[],
+    lista: atividade[],
 }) {
     moment.locale('pt-br');
     moment.updateLocale('en', {
@@ -39,12 +29,12 @@ export function CardAtividade(props: {
                 p={"1"}
             >
                 <Image objectFit='cover'
-                    src={atividade.Logo}
+                    src={'./ump.png'}
                     alt='Logo Sociedade Interna'
                     maxW={{ base: '100%', sm: '24' }} ></Image>
                 <Stack>
                     <CardBody>
-                        <Text fontSize='md'>{atividade.descricao} {atividade.SantaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
+                        <Text fontSize='md'>{atividade.descricao} {atividade.santaCeia ? <Text as='b'>- Santa Ceia</Text> : ""}</Text>
                         <Flex>
                             <Text fontSize='sm'>{moment(atividade.dataHora).format("DD") + "/" + moment(atividade.dataHora).format("MM") + " - " + moment(atividade.dataHora).format("dddd")}</Text>
                             <Spacer />

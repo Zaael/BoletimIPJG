@@ -16,8 +16,10 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, Resolver, useForm } from "react-hook-form";
 import dados, { Lista } from './dados';
+import { atividade } from "./types/atividade";
+import { supabase } from "./SupaBaseConnectionAPI";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -32,7 +34,7 @@ export function ModalNovaAtividade(props: {
           <ModalHeader>Nova atividade</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <NovaAtividade></NovaAtividade>
+            <NovaAtividade onClose={props.onClose}></NovaAtividade>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3}>
@@ -46,20 +48,39 @@ export function ModalNovaAtividade(props: {
   );
 }
 
-export function NovaAtividade() {
+export function NovaAtividade(props: {
+  onClose: Function;
+}) {
+  const resolver: Resolver<atividade> = async (values) => {
+    return {
+      values: values.descricao ? values : {},
+      errors: !values.descricao
+        ? {
+            descricao: {
+              type: 'required',
+              message: 'This is required.',
+            },
+          }
+        : {},
+    };
+  };
+
   const {
     register,
-    handleSubmit,
-    watch,
+    handleSubmit,  
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<atividade>({ resolver });
 
-  function onSubmit(data: any) {
+  function onSubmit(data: atividade) {
     return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        dados.push(data);
-        console.log(dados);
-        alert(JSON.stringify(data, null, 2));
+      setTimeout(async () => {
+        
+        const { data: response, error } = await supabase
+        .from('atividades')
+        .insert(data);
+
+        props.onClose();
+        
         resolve();
       }, 3000);
     })
@@ -131,14 +152,9 @@ export function NovaAtividade() {
             })}>
               {
                 Lista.map((sigla) =>(
-                  <option value={sigla.sigla}>{sigla.sigla}</option>
+                  <option value={sigla.sigla} key={sigla.sigla}>{sigla.sigla}</option>
                 ))
               }
-              {/* <option value='UMP'>UMP</option>
-              <option value='SAF'>SAF</option>
-              <option value='UCP'>UCP</option>
-              <option value='UPA'>UPA</option>
-              <option value='Todas'>Todas</option> */}
             </Select>
             <FormErrorMessage>
               <span>{errors.sociedadeInterna?.message?.toString()}</span>

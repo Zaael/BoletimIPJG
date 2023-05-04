@@ -53,16 +53,16 @@ dados = [];
     { sigla: 'Estudos', cor: 'teal' },   
 ];
 
-function GetDadosRepo(){
-  useEffect(()=> {
-    async function carregaDados() {
-      const resposta = await fetch('http://localhost:5183/api/Atividade/');
-      const dados = await resposta.json();
-      console.log(dados);
-      return dados;
-    }
-    carregaDados();
-  }, []);
-}
+// function GetDadosRepo(){
+//   useEffect(()=> {
+//     async function carregaDados() {
+//       const resposta = await fetch('http://localhost:5183/api/Atividade/');
+//       const dados = await resposta.json();
+//       console.log(dados);
+//       return dados;
+//     }
+//     carregaDados();
+//   }, []);
+// }
 
-  export {dados as default,  Lista, GetDadosRepo};
+  export {dados as default,  Lista};
