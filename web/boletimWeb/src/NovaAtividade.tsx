@@ -15,11 +15,14 @@ import {
   Select,
   Wrap,
   WrapItem,
+  useToast,
 } from "@chakra-ui/react";
 import { Controller, Resolver, useForm } from "react-hook-form";
 import dados, { Lista } from './dados';
 import { atividade } from "./types/atividade";
 import { supabase } from "./SupaBaseConnectionAPI";
+import { useContext } from "react";
+import { atividadeContext } from "./contexts/ListaAtividadesContext";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -51,6 +54,8 @@ export function ModalNovaAtividade(props: {
 export function NovaAtividade(props: {
   onClose: Function;
 }) {
+  const toast = useToast();
+  const lista = useContext(atividadeContext);
   const resolver: Resolver<atividade> = async (values) => {
     return {
       values: values.descricao ? values : {},
@@ -77,8 +82,19 @@ export function NovaAtividade(props: {
         
         const { data: response, error } = await supabase
         .from('atividades')
-        .insert(data);
+        .insert(data).select("*")
 
+        
+        lista = response;
+
+        toast({
+          title: 'Atividade incluída',
+          //description: "nós incluímos a atividade para você",
+          status: 'success',
+          duration: 3000,
+          position:'top-right',
+          isClosable: true,
+        })
         props.onClose();
         
         resolve();
