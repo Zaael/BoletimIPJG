@@ -3,12 +3,11 @@ import { Image } from '@chakra-ui/react'
 import moment from 'moment'
 import { CardAtividadeItem } from './CardAtividadeItem';
 import { CardAtividadeButtons } from './CardAtividadeButtons';
-import { atividade } from './types/atividade';
+import { useContext } from 'react';
+import { AtividadeContext } from './contexts/ListaAtividadesContext';
 
 
-export function CardAtividade(props: {
-    lista: atividade[],
-}) {
+export function CardAtividade() {
     moment.locale('pt-br');
     moment.updateLocale('en', {
         monthsShort: [
@@ -19,9 +18,10 @@ export function CardAtividade(props: {
             "Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"
         ]
     });
+    const {atividades} = useContext(AtividadeContext);
 
-    const cards = props.lista.map((atividade) => (
-        <Box w={'26rem'} key={atividade.descricao}>
+    const cards = atividades.map((atividade) => (
+        <Box w={'26rem'} key={atividade.id}>
             <Card direction={{ base: 'column', sm: 'row' }}
                 overflow='hidden'
                 variant='outline'

@@ -2,24 +2,27 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
 import TagsSociedades from "./TagsSociedades";
 import { CardAtividade } from "./CardAtividade";
-import { useState } from "react";
-import { atividade } from "./types/atividade";
+import { useContext, useState } from "react";
+import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
-export function PesquisaAtividade(props: {
-  lista: atividade[];
-}) {
+export function PesquisaAtividade() {
+  const {atividades, setAtividades} = useContext(AtividadeContext);
   const [filtro, setFiltro] = useState('');
   const [filtroTag, setFiltroTag] = useState('');
 
 
-  var listaFiltrada = filtro.length > 1 ? props.lista
+  var listaFiltrada = filtro.length > 1 ? atividades
   .filter(element => element.descricao.toString().toLowerCase()
   .includes(filtro.toLowerCase())) 
-    : props.lista;
+    : atividades;
 
-  listaFiltrada = filtroTag.length > 2 ? 
+  //setAtividades(listaFiltrada);
+
+  listaFiltrada = filtroTag.length > 1 ? 
   listaFiltrada.filter(element => element.sociedadeInterna?.match(filtroTag))
     : listaFiltrada;
+
+  //setAtividades(listaFiltrada);
 
   return (
     <VStack p={5}>
@@ -31,7 +34,7 @@ export function PesquisaAtividade(props: {
         <Input onChange={ (e) => setFiltro(e.target.value)} type="tel" placeholder="Pesquisar" />
       </InputGroup>
       <TagsSociedades setFiltroTag={setFiltroTag}></TagsSociedades>
-      <CardAtividade lista={listaFiltrada}></CardAtividade>
+      <CardAtividade></CardAtividade>
     </VStack>
   );
 }

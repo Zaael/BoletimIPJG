@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
     Box,
     Button,
@@ -18,6 +18,7 @@ import { PesquisaAtividade } from "./PesquisaAtividade";
 import { ModalNovaAtividade } from "./NovaAtividade";
 import { atividade } from "./types/atividade";
 import { supabase } from "./SupaBaseConnectionAPI";
+import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
 const lista: atividade[] = [];
 
@@ -61,7 +62,9 @@ function App() {
             </Center>
             <Divider />
             <VStack p={5}>
-                <PesquisaAtividade lista={atividades}></PesquisaAtividade>
+                <AtividadeContext.Provider value={{atividades, setAtividades }}>
+                    <PesquisaAtividade></PesquisaAtividade>
+
 
                 {/* nova atividade */}
                 <Button
@@ -70,15 +73,16 @@ function App() {
                     leftIcon={<AddIcon />}
                     colorScheme="green"
                     size={"md"}
-                >
+                    >
                     Nova programação
                 </Button>
                 <ModalNovaAtividade
                     isOpen={isOpen}
                     onClose={onClose}
                     onOpen={onOpen}
-                ></ModalNovaAtividade>
+                    ></ModalNovaAtividade>
                 {/* nova atividade */}
+                </AtividadeContext.Provider>
             </VStack>
             <IconButton
                 aria-label="toggle theme"

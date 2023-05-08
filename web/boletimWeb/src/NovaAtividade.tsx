@@ -22,7 +22,7 @@ import dados, { Lista } from './dados';
 import { atividade } from "./types/atividade";
 import { supabase } from "./SupaBaseConnectionAPI";
 import { useContext } from "react";
-import { atividadeContext } from "./contexts/ListaAtividadesContext";
+import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -55,7 +55,8 @@ export function NovaAtividade(props: {
   onClose: Function;
 }) {
   const toast = useToast();
-  const lista = useContext(atividadeContext);
+  const {setAtividades} = useContext(AtividadeContext);
+
   const resolver: Resolver<atividade> = async (values) => {
     return {
       values: values.descricao ? values : {},
@@ -83,10 +84,11 @@ export function NovaAtividade(props: {
         const { data: response, error } = await supabase
         .from('atividades')
         .insert(data).select("*")
-
         
-        lista = response;
-
+        if (response) {
+          setAtividades(response);
+        }
+        
         toast({
           title: 'Atividade incluída',
           //description: "nós incluímos a atividade para você",
