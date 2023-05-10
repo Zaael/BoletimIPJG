@@ -5,3 +5,5 @@ export type atividade = Database['public']['Tables']['atividades']['Row'];
 export type sociedadeInterna = Database['public']['Tables']['sociedadeInterna']['Row'];
 
 export type tipoAtividade = Database['public']['Tables']['tipoAtividade']['Row'];
+
+export type filtroAtividade = {filtroTexto: string, isTag: boolean};

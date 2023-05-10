@@ -6,23 +6,13 @@ import { useContext, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
 export function PesquisaAtividade() {
-  const {atividades, setAtividades} = useContext(AtividadeContext);
+  const {filtrarAtividades} = useContext(AtividadeContext);
   const [filtro, setFiltro] = useState('');
-  const [filtroTag, setFiltroTag] = useState('');
 
-
-  var listaFiltrada = filtro.length > 1 ? atividades
-  .filter(element => element.descricao.toString().toLowerCase()
-  .includes(filtro.toLowerCase())) 
-    : atividades;
-
-  //setAtividades(listaFiltrada);
-
-  listaFiltrada = filtroTag.length > 1 ? 
-  listaFiltrada.filter(element => element.sociedadeInterna?.match(filtroTag))
-    : listaFiltrada;
-
-  //setAtividades(listaFiltrada);
+  function aplicarFiltro(filtroInput: string){
+    filtrarAtividades(filtroInput, false);
+    setFiltro(filtroInput);
+  }
 
   return (
     <VStack p={5}>
@@ -31,9 +21,9 @@ export function PesquisaAtividade() {
           pointerEvents="none"
           children={<SearchIcon color="gray.300" />}
         />
-        <Input onChange={ (e) => setFiltro(e.target.value)} type="tel" placeholder="Pesquisar" />
+        <Input onChange={ (e) => aplicarFiltro(e.target.value)} type="tel" placeholder="Pesquisar" />
       </InputGroup>
-      <TagsSociedades setFiltroTag={setFiltroTag}></TagsSociedades>
+      <TagsSociedades></TagsSociedades>
       <CardAtividade></CardAtividade>
     </VStack>
   );

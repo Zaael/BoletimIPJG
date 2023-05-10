@@ -1,4 +1,3 @@
-import { useContext, useEffect, useState } from "react";
 import {
     Box,
     Button,
@@ -16,28 +15,11 @@ import { AddIcon } from "@chakra-ui/icons";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { PesquisaAtividade } from "./PesquisaAtividade";
 import { ModalNovaAtividade } from "./NovaAtividade";
-import { atividade } from "./types/atividade";
-import { supabase } from "./SupaBaseConnectionAPI";
-import { AtividadeContext } from "./contexts/ListaAtividadesContext";
-
-const lista: atividade[] = [];
+import { AtividadeContextProvider } from "./contexts/ListaAtividadesContext";
 
 function App() {
     const { toggleColorMode, colorMode } = useColorMode();
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [atividades, setAtividades] = useState(lista);
-
-    useEffect(() => {
-        async function carregaDados() {
-            let { data: atividades, error } = await supabase
-                .from("atividades")
-                .select("*");
-            if (atividades) {
-                setAtividades(atividades);
-            }
-        }
-        carregaDados();
-    }, []);
+    const { isOpen, onOpen, onClose } = useDisclosure();    
 
     return (
         <Box
@@ -62,10 +44,8 @@ function App() {
             </Center>
             <Divider />
             <VStack p={5}>
-                <AtividadeContext.Provider value={{atividades, setAtividades }}>
+                <AtividadeContextProvider>
                     <PesquisaAtividade></PesquisaAtividade>
-
-
                 {/* nova atividade */}
                 <Button
                     onClick={onOpen}
@@ -82,7 +62,7 @@ function App() {
                     onOpen={onOpen}
                     ></ModalNovaAtividade>
                 {/* nova atividade */}
-                </AtividadeContext.Provider>
+                </AtividadeContextProvider>
             </VStack>
             <IconButton
                 aria-label="toggle theme"

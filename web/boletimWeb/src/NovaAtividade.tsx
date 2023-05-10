@@ -17,8 +17,7 @@ import {
   WrapItem,
   useToast,
 } from "@chakra-ui/react";
-import { Controller, Resolver, useForm } from "react-hook-form";
-import dados, { Lista } from './dados';
+import { Resolver, useForm } from "react-hook-form";
 import { atividade } from "./types/atividade";
 import { supabase } from "./SupaBaseConnectionAPI";
 import { useContext } from "react";
@@ -55,7 +54,7 @@ export function NovaAtividade(props: {
   onClose: Function;
 }) {
   const toast = useToast();
-  const {setAtividades} = useContext(AtividadeContext);
+  const {setAtividades, tags} = useContext(AtividadeContext);
 
   const resolver: Resolver<atividade> = async (values) => {
     return {
@@ -83,7 +82,8 @@ export function NovaAtividade(props: {
         
         const { data: response, error } = await supabase
         .from('atividades')
-        .insert(data).select("*")
+        .insert(data)
+        .select("*")
         
         if (response) {
           setAtividades(response);
@@ -169,7 +169,7 @@ export function NovaAtividade(props: {
               required: 'Preenhca o sociedadeInterna',
             })}>
               {
-                Lista.map((sigla) =>(
+                tags.map((sigla) =>(
                   <option value={sigla.sigla} key={sigla.sigla}>{sigla.sigla}</option>
                 ))
               }
