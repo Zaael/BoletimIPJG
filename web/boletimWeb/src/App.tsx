@@ -16,10 +16,11 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { PesquisaAtividade } from "./PesquisaAtividade";
 import { ModalNovaAtividade } from "./NovaAtividade";
 import { AtividadeContextProvider } from "./contexts/ListaAtividadesContext";
+import { HeadingIgreja, LogoIgreja } from "./Marca";
 
 function App() {
     const { toggleColorMode, colorMode } = useColorMode();
-    const { isOpen, onOpen, onClose } = useDisclosure();    
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <Box
@@ -30,38 +31,30 @@ function App() {
             maxW={"container.lg"}
             alignItems={"center"}
         >
-            <Image
-                objectFit="cover"
-                src="./IPJG.png"
-                alt="Logo IPJG"
-                maxW={{ base: "100%", sm: "16" }}
-            ></Image>
-            <Heading color={"#243A6D"} as="h2" size="sm">
-                Boletim IPJG
-            </Heading>
+            <LogoIgreja></LogoIgreja>
+            <HeadingIgreja></HeadingIgreja>
+
             <Center w="100%" p={2}>
-                <Heading color={"#243A6D"}>Calendário</Heading>
+                <Heading color={colorMode === "dark" ? "white" : "ump.500"}>Calendário</Heading>
             </Center>
-            <Divider />
+            <Divider></Divider>
             <VStack p={5}>
                 <AtividadeContextProvider>
                     <PesquisaAtividade></PesquisaAtividade>
-                {/* nova atividade */}
-                <Button
-                    onClick={onOpen}
-                    alignSelf={"end"}
-                    leftIcon={<AddIcon />}
-                    colorScheme="green"
-                    size={"md"}
+                    <Button
+                        onClick={onOpen}
+                        alignSelf={"end"}
+                        leftIcon={<AddIcon />}
+                        colorScheme="green"
+                        size={"md"}
                     >
-                    Nova programação
-                </Button>
-                <ModalNovaAtividade
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    onOpen={onOpen}
+                        Nova programação
+                    </Button>
+                    <ModalNovaAtividade
+                        isOpen={isOpen}
+                        onClose={onClose}
+                        onOpen={onOpen}
                     ></ModalNovaAtividade>
-                {/* nova atividade */}
                 </AtividadeContextProvider>
             </VStack>
             <IconButton

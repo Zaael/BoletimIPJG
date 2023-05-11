@@ -6,12 +6,13 @@ import { useContext, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
 export function PesquisaAtividade() {
-  const {filtrarAtividades} = useContext(AtividadeContext);
+  const { filtrarAtividades } = useContext(AtividadeContext);
   const [filtro, setFiltro] = useState('');
 
-  function aplicarFiltro(filtroInput: string){
-    filtrarAtividades(filtroInput, false);
+  function aplicarFiltro(e: any) {
+    var filtroInput = e.target.value;
     setFiltro(filtroInput);
+    filtrarAtividades(filtroInput);
   }
 
   return (
@@ -21,7 +22,7 @@ export function PesquisaAtividade() {
           pointerEvents="none"
           children={<SearchIcon color="gray.300" />}
         />
-        <Input onChange={ (e) => aplicarFiltro(e.target.value)} type="tel" placeholder="Pesquisar" />
+        <Input onInput={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
       </InputGroup>
       <TagsSociedades></TagsSociedades>
       <CardAtividade></CardAtividade>

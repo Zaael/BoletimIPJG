@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "createTypes":"npx supabase gen types typescript --project-id zlgefsrnumtlfugftpyf --schema public > ./src/types/supabase.ts"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.18",

@@ -22,12 +22,12 @@ export default function TagsSociedades() {
 
 function TagSocidedadeInterna(props: { sigla: string, cor: string | null}) {
     const [select, setSelect] = useState(false);
-    const {filtrarAtividades} = useContext(AtividadeContext);
+    const {filtrarAtividadesTag} = useContext(AtividadeContext);
     
     function toggleVariantTag(e:any){
         var selecionado = !select;
         setSelect(selecionado);
-        selecionado? filtrarAtividades(e, true) : filtrarAtividades('',true);
+        selecionado ? filtrarAtividadesTag(e) : filtrarAtividadesTag('');
     }
 
     return <Button onClick={(e) => toggleVariantTag(e.currentTarget.value)}
