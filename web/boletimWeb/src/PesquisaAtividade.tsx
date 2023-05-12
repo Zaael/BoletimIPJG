@@ -22,7 +22,7 @@ export function PesquisaAtividade() {
           pointerEvents="none"
           children={<SearchIcon color="gray.300" />}
         />
-        <Input onInput={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
+        <Input value={filtro} onInput={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
       </InputGroup>
       <TagsSociedades></TagsSociedades>
       <CardAtividade></CardAtividade>

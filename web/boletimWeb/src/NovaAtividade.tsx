@@ -16,13 +16,15 @@ import {
   Wrap,
   WrapItem,
   useToast,
+  Switch,
 } from "@chakra-ui/react";
-import { Resolver, useForm } from "react-hook-form";
+import { Resolver, useForm, UseFormRegister, useWatch } from "react-hook-form";
 import { atividade } from "./types/atividade";
-import { TipoAtividades, supabase } from "./SupaBaseConnectionAPI";
+import { TipoAtividades, supabase, Atividades } from "./SupaBaseConnectionAPI";
 import { useContext } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
+import { CardItem } from "./CardAtividade";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -67,6 +69,7 @@ export function NovaAtividade(props: {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<atividade>({ resolver });
 
@@ -101,6 +104,10 @@ export function NovaAtividade(props: {
     })
   }
 
+  const tipoAtividadeWatch = watch("tipoAtividade");
+  const localWatch = watch("local");
+  console.log(tipoAtividadeWatch);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ModalBody>
@@ -111,9 +118,9 @@ export function NovaAtividade(props: {
               <Select id="tipoAtividade" variant="flushed" placeholder="Selecione..." {...register('tipoAtividade', {
                 required: 'Preenhca o tipo da programação',
               })}>
-                { 
+                {
                   TipoAtividades?.map((tipo) => (
-                    <option value={tipo.atividade} key={tipo.cod}>{tipo.atividade}</option>
+                    <option value={tipo.cod} key={tipo.cod}>{tipo.atividade}</option>
                   ))
                 }
               </Select>
@@ -122,6 +129,18 @@ export function NovaAtividade(props: {
               </FormErrorMessage>
             </FormControl>
           </WrapItem>
+          {tipoAtividadeWatch == 1 && <WrapItem>
+            <FormControl isInvalid={errors.santaCeia ? true : false}>
+              <FormLabel htmlFor='santaCeia'>Santa Ceia?</FormLabel>
+              <Switch id="santaCeia" size={'md'} variant="flushed" placeholder="Santa Ceia" {...register('santaCeia', {
+                required: 'informe se é santa ceia'
+              })} />
+              <FormErrorMessage>
+                <span>{errors.santaCeia?.message?.toString()}</span>
+              </FormErrorMessage>
+            </FormControl>
+          </WrapItem>
+          }
           <WrapItem>
             <FormControl isInvalid={errors.descricao ? true : false}>
               <FormLabel htmlFor='descricao'>Descrição</FormLabel>
@@ -138,6 +157,8 @@ export function NovaAtividade(props: {
               <FormLabel htmlFor='dataHora'>Data e Hora</FormLabel>
               <Input id="dataHora" variant="flushed" type="datetime-local" placeholder="Data e Hora" {...register('dataHora', {
                 required: 'Preenhca uma data e horário',
+                valueAsDate: true,
+                onChange: (e) => ValidaChoqueProgramacoes(e, "")
               })} />
               <FormErrorMessage>
                 <span>{errors.dataHora?.message?.toString()}</span>
@@ -204,4 +225,15 @@ export function NovaAtividade(props: {
       </ModalFooter>
     </form>
   );
+}
+
+function ValidaChoqueProgramacoes(data: string, local: string) {
+  const atividadeEncontradas = Atividades?.filter((ativ) => ativ.dataHora.match(data));
+  const cards = CardItem(atividadeEncontradas != undefined ? atividadeEncontradas : [], 'sm');
+  return (
+    <Box>
+      <p>Existem essas programações na data inserida</p>
+      {cards}
+    </Box>
+  )
 }

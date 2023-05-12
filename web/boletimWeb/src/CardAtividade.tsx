@@ -5,6 +5,7 @@ import { CardAtividadeButtons } from './CardAtividadeButtons';
 import { useContext } from 'react';
 import { AtividadeContext } from './contexts/ListaAtividadesContext';
 import { LogoSociedadeInterna } from './Marca';
+import { atividade } from './types/atividade';
 
 
 export function CardAtividade() {
@@ -19,8 +20,17 @@ export function CardAtividade() {
         ]
     });
     const { atividades } = useContext(AtividadeContext);
+    const cards = CardItem(atividades, 'sm');
+
+    return (
+        <Box overflow={'auto'} h={'2xl'}>
+            {cards}
+        </Box>
+    )
+}
+
+export function CardItem(atividades: atividade[], size: string) {
     const cards = atividades.map((atividade) => (
-        // var logo = Tags ? Tags.find(tag => tag.sigla == atividade)
         <Box w={'26rem'} key={atividade.id}>
             <div>
                 <Card direction={{ base: 'column', sm: 'row' }}
@@ -28,6 +38,7 @@ export function CardAtividade() {
                     variant='outline'
                     m={"1.5"}
                     p={"1"}
+                    size={size}
                 >
                     <LogoSociedadeInterna sigla={atividade.sociedadeInterna ? atividade.sociedadeInterna : ""}></LogoSociedadeInterna>
                     <Stack>
@@ -53,11 +64,7 @@ export function CardAtividade() {
         </Box >
     ));
 
-    return (
-        <Box overflow={'auto'} h={'2xl'}>
-            {cards}
-        </Box>
-    )
+    return cards;
 }
 
 // .color1 { #046dd8 };

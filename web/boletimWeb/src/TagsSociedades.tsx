@@ -4,9 +4,10 @@ import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 
 
+
 export default function TagsSociedades() {
-    const {tags} = useContext(SociedadeInternaContext);
-    
+    const { tags } = useContext(SociedadeInternaContext);
+
     return (
         <div>
             <HStack spacing={4}>
@@ -20,22 +21,32 @@ export default function TagsSociedades() {
     );
 }
 
-function TagSocidedadeInterna(props: { sigla: string, cor: string | null}) {
+function TagSocidedadeInterna(props: { sigla: string, cor: string | null }) {
     const [select, setSelect] = useState(false);
-    const {filtrarAtividadesTag} = useContext(AtividadeContext);
-    
-    function toggleVariantTag(e:any){
+    const { dispatchTags } = useContext(AtividadeContext);
+
+    function toggleVariantTag(sigla: string) {
         var selecionado = !select;
         setSelect(selecionado);
-        selecionado ? filtrarAtividadesTag(e) : filtrarAtividadesTag('');
+        selecionado ?
+            dispatchTags({
+                type: "ativo",
+                ativo: selecionado,
+                sigla: sigla
+            }) : dispatchTags({
+                type: "inativo",
+                ativo: !selecionado,
+                sigla: sigla
+            })
+
     }
 
     return <Button onClick={(e) => toggleVariantTag(e.currentTarget.value)}
         key={props.sigla}
         size={'sm'}
-        variant= {select? 'solid' : 'outline'}
+        variant={select ? 'solid' : 'outline'}
         borderRadius={'full'}
-        colorScheme={props.cor? props.cor : undefined}
+        colorScheme={props.cor ? props.cor : undefined}
         value={props.sigla}>
         {props.sigla}
     </Button>
