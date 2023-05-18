@@ -9,18 +9,9 @@ import { atividade } from './types/atividade';
 
 
 export function CardAtividade() {
-    moment.locale('pt-br');
-    moment.updateLocale('en', {
-        monthsShort: [
-            "Jan", "Feb", "Mar", "Abr", "Mai", "Jun",
-            "Jul", "Ago", "Set", "Out", "Nov", "Dez"
-        ],
-        weekdays: [
-            "Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"
-        ]
-    });
-    const { atividades } = useContext(AtividadeContext);
-    const cards = CardItem(atividades, 'sm');
+    ConfiguraMomentJs();
+    const { atividadesFiltradas } = useContext(AtividadeContext);
+    const cards = CardItem(atividadesFiltradas, 'sm');
 
     return (
         <Box overflow={'auto'} h={'2xl'}>
@@ -67,6 +58,19 @@ export function CardItem(atividades: atividade[], size: string) {
     return cards;
 }
 
+
+function ConfiguraMomentJs() {
+    moment.locale('pt-br');
+    moment.updateLocale('en', {
+        monthsShort: [
+            "Jan", "Feb", "Mar", "Abr", "Mai", "Jun",
+            "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+        ],
+        weekdays: [
+            "Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"
+        ]
+    });
+}
 // .color1 { #046dd8 };
 // .color2 { #2a85e2 };
 // .color3 { #4f9cec };

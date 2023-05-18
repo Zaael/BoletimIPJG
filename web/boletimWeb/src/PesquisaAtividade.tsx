@@ -2,17 +2,19 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
 import TagsSociedades from "./TagsSociedades";
 import { CardAtividade } from "./CardAtividade";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
 export function PesquisaAtividade() {
-  const { filtrarAtividades } = useContext(AtividadeContext);
-  const [filtro, setFiltro] = useState('');
+  const { filtro, setFiltro, filtrarAtividades } = useContext(AtividadeContext);
+
+  useEffect(() => {
+    filtrarAtividades();
+  }, [filtro]);
 
   function aplicarFiltro(e: any) {
     var filtroInput = e.target.value;
     setFiltro(filtroInput);
-    filtrarAtividades(filtroInput);
   }
 
   return (
@@ -22,7 +24,7 @@ export function PesquisaAtividade() {
           pointerEvents="none"
           children={<SearchIcon color="gray.300" />}
         />
-        <Input value={filtro} onInput={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
+        <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
       </InputGroup>
       <TagsSociedades></TagsSociedades>
       <CardAtividade></CardAtividade>

@@ -18,7 +18,7 @@ import {
   useToast,
   Switch,
 } from "@chakra-ui/react";
-import { Resolver, useForm, UseFormRegister, useWatch } from "react-hook-form";
+import { Resolver, useForm, } from "react-hook-form";
 import { atividade } from "./types/atividade";
 import { TipoAtividades, supabase, Atividades } from "./SupaBaseConnectionAPI";
 import { useContext } from "react";
@@ -49,7 +49,7 @@ export function NovaAtividade(props: {
   onClose: Function;
 }) {
   const toast = useToast();
-  const { setAtividadesFiltradas, filtrarAtividades } = useContext(AtividadeContext);
+  const { setAtividadesFiltradas } = useContext(AtividadeContext);
   const { tags } = useContext(SociedadeInternaContext);
 
   const resolver: Resolver<atividade> = async (values) => {
@@ -158,7 +158,7 @@ export function NovaAtividade(props: {
               <Input id="dataHora" variant="flushed" type="datetime-local" placeholder="Data e Hora" {...register('dataHora', {
                 required: 'Preenhca uma data e horário',
                 valueAsDate: true,
-                onChange: (e) => ValidaChoqueProgramacoes(e, "")
+                onChange: (e) => ValidaConflitoProgramacoes(e, "")
               })} />
               <FormErrorMessage>
                 <span>{errors.dataHora?.message?.toString()}</span>
@@ -227,7 +227,7 @@ export function NovaAtividade(props: {
   );
 }
 
-function ValidaChoqueProgramacoes(data: string, local: string) {
+function ValidaConflitoProgramacoes(data: string, local: string) {
   const atividadeEncontradas = Atividades?.filter((ativ) => ativ.dataHora.match(data));
   const cards = CardItem(atividadeEncontradas != undefined ? atividadeEncontradas : [], 'sm');
   return (

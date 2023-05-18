@@ -1,5 +1,5 @@
 import { Button, HStack, } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 
@@ -23,7 +23,11 @@ export default function TagsSociedades() {
 
 function TagSocidedadeInterna(props: { sigla: string, cor: string | null }) {
     const [select, setSelect] = useState(false);
-    const { dispatchTags } = useContext(AtividadeContext);
+    const { dispatchTags, filtrarAtividades } = useContext(AtividadeContext);
+
+    useEffect(() => {
+        filtrarAtividades();
+    }, [select]);
 
     function toggleVariantTag(sigla: string) {
         var selecionado = !select;
@@ -33,7 +37,8 @@ function TagSocidedadeInterna(props: { sigla: string, cor: string | null }) {
                 type: "ativo",
                 ativo: selecionado,
                 sigla: sigla
-            }) : dispatchTags({
+            }) :
+            dispatchTags({
                 type: "inativo",
                 ativo: !selecionado,
                 sigla: sigla
