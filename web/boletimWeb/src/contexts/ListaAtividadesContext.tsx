@@ -31,6 +31,8 @@ type AtividadeContextType = {
     }>;
     filtro: string;
     setFiltro: (newFiltro: string) => void;
+    filtroData: string;
+    setFiltroData: (filtroData: string) => void;
 }
 
 const valorInicial = {
@@ -43,6 +45,8 @@ const valorInicial = {
     dispatchTags: () => { },
     filtro: "",
     setFiltro: () => { },
+    filtroData: "",
+    setFiltroData: () => { },
 }
 
 export const AtividadeContext = createContext<AtividadeContextType>(valorInicial);
@@ -50,7 +54,8 @@ export const AtividadeContext = createContext<AtividadeContextType>(valorInicial
 export const AtividadeContextProvider = ({ children }: AtividadeContextProps) => {
     const [atividades, setAtividades] = useState(valorInicial.atividades);
     const [atividadesFiltradas, setAtividadesFiltradas] = useState(atividades);
-    const [filtro, setFiltroInput] = useState("");
+    const [filtro, setFiltroInput] = useState(valorInicial.filtro);
+    const [filtroData, setFiltroData] = useState(valorInicial.filtroData);
 
     const [tagsSelecionadas, dispatch] = useImmerReducer(
         (draft, action: { type: string, ativo: boolean, sigla: string }) => {
@@ -73,7 +78,8 @@ export const AtividadeContextProvider = ({ children }: AtividadeContextProps) =>
         var listaFiltrada =
             atividades
                 .filter(filtroInput)
-                .filter(filtroTags);
+                .filter(filtroTags)
+                .filter(filtroDatas);
 
         setAtividadesFiltradas(
             listaFiltrada
@@ -82,9 +88,10 @@ export const AtividadeContextProvider = ({ children }: AtividadeContextProps) =>
 
     let filtroInput = (atividade: atividade) => filtro.length >= 1 ? atividade.descricao.toString().toLowerCase().includes(filtro.toLowerCase()) : atividade;
     let filtroTags = (atividade: atividade) => tagsSelecionadas.length >= 1 ? tagsSelecionadas.find(tag => tag.sigla === atividade.sociedadeInterna) : atividade;
+    let filtroDatas = (atividade: atividade) => filtroData.toLocaleString().length >= 1 ? atividade.dataHora.match(filtroData) : atividade;
 
     return (
-        <AtividadeContext.Provider value={{ atividades: atividades, setAtividades, atividadesFiltradas, setAtividadesFiltradas: setAtividadesFiltradas, filtrarAtividades, tagsSelecionadas, dispatchTags: dispatch, filtro, setFiltro: setFiltroInput }}>
+        <AtividadeContext.Provider value={{ atividades: atividades, setAtividades, atividadesFiltradas, setAtividadesFiltradas: setAtividadesFiltradas, filtrarAtividades, tagsSelecionadas, dispatchTags: dispatch, filtro, setFiltro: setFiltroInput, filtroData, setFiltroData }}>
             {children}
         </AtividadeContext.Provider>
     )

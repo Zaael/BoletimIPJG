@@ -6,15 +6,25 @@ import { useContext, useEffect, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 
 export function PesquisaAtividade() {
-  const { filtro, setFiltro, filtrarAtividades } = useContext(AtividadeContext);
+  const { filtro, setFiltro, filtrarAtividades, filtroData, setFiltroData } = useContext(AtividadeContext);
 
   useEffect(() => {
     filtrarAtividades();
   }, [filtro]);
 
+  useEffect(() => {
+    filtrarAtividades();
+  }, [filtroData]);
+
   function aplicarFiltro(e: any) {
     var filtroInput = e.target.value;
     setFiltro(filtroInput);
+  }
+
+  function aplicarFiltroData(e: any) {
+    var filtroInputData = e.target.value;
+    console.log(filtroInputData);
+    setFiltroData(filtroInputData);
   }
 
   return (
@@ -28,14 +38,17 @@ export function PesquisaAtividade() {
           <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
         </InputGroup>
         <InputGroup w={"50%"}>
-          <InputLeftElement
+          {/* <InputLeftElement
             pointerEvents="none"
             children={<CalendarIcon color="gray.300" />}
-          />
+          /> */}
           <Input
             placeholder="Selecione a data"
+            color={"gray.300"}
             size="md"
-            type="datetime-local"
+            type="date"
+            value={filtroData}
+            onChange={(e) => aplicarFiltroData(e)}
           />
         </InputGroup>
       </HStack>
