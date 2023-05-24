@@ -10,13 +10,14 @@ import {
     IconButton,
     useDisclosure,
     Flex,
+    Menu,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import { FaMoon, FaSun } from "react-icons/fa";
 import { PesquisaAtividade } from "./PesquisaAtividade";
 import { ModalNovaAtividade } from "./NovaAtividade";
 import { AtividadeContextProvider } from "./contexts/ListaAtividadesContext";
-import { HeadingIgreja, LogoIgreja } from "./Marca";
+import { Cabecalho } from "./Header";
+import { MenuTabs } from "./Menu";
 
 function App() {
     const { toggleColorMode, colorMode } = useColorMode();
@@ -31,12 +32,8 @@ function App() {
             maxW={"container.lg"}
             alignItems={"center"}
         >
-            <LogoIgreja></LogoIgreja>
-            <HeadingIgreja></HeadingIgreja>
-
-            <Center w="100%" p={2}>
-                <Heading color={colorMode === "dark" ? "white" : "ump.500"}>Calendário</Heading>
-            </Center>
+            <Cabecalho></Cabecalho>
+            <MenuTabs></MenuTabs>
             <Divider></Divider>
             <VStack p={5}>
                 <AtividadeContextProvider>
@@ -57,16 +54,6 @@ function App() {
                     ></ModalNovaAtividade>
                 </AtividadeContextProvider>
             </VStack>
-            <IconButton
-                aria-label="toggle theme"
-                rounded="full"
-                size="xs"
-                position="absolute"
-                bottom={4}
-                left={4}
-                onClick={toggleColorMode}
-                icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
-            />
         </Box>
     );
 }

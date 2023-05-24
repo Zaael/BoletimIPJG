@@ -4,11 +4,9 @@ import { useEffect } from 'react'
 import { utc } from 'moment'
 import moment from 'moment'
 
-const supabaseUrl = 'https://zlgefsrnumtlfugftpyf.supabase.co'
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZ2Vmc3JudW10bGZ1Z2Z0cHlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODMxMzcxNzEsImV4cCI6MTk5ODcxMzE3MX0.0Denn0lM1Pk689Jl6kDkkDAQ393DxmVzmyoNGY55L30"
-const supabase = createClient<Database>(supabaseUrl, supabaseKey)
+const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
-export { supabase, Atividades, Tags, TipoAtividades };
+export { supabase, Atividades, Tags, TipoAtividades, signInWithGoogle, signout, sessao };
 
 var now = Date.now();
 
@@ -25,3 +23,22 @@ const { data: Tags } = await supabase
 const { data: TipoAtividades } = await supabase
     .from("tipoAtividade")
     .select("*");
+
+async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            queryParams: {
+                access_type: 'offline',
+                prompt: 'consent',
+            },
+        },
+    })
+}
+
+async function signout() {
+    const { error } = await supabase.auth.signOut()
+}
+
+
+const { data: sessao, error } = await supabase.auth.getSession()

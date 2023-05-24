@@ -2,6 +2,7 @@
 
 // 1. import `extendTheme` function
 import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
+import '@fontsource/bebas-neue';
 
 // 2. Add your color mode config
 const config: ThemeConfig = {
@@ -111,6 +112,9 @@ const theme = extendTheme({
       900: "#5CB270",
     },
   },
+  fonts: {
+    logo: `'Bebas Neue', sans-serif`,
+  }
 });
 
 export default theme

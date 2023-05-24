@@ -17,14 +17,17 @@ import {
   WrapItem,
   useToast,
   Switch,
+  VStack,
+  Text,
 } from "@chakra-ui/react";
 import { Resolver, useForm, } from "react-hook-form";
 import { atividade } from "./types/atividade";
 import { TipoAtividades, supabase, Atividades } from "./SupaBaseConnectionAPI";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 import { CardItem } from "./CardAtividade";
+import moment from "moment";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -48,9 +51,23 @@ export function ModalNovaAtividade(props: {
 export function NovaAtividade(props: {
   onClose: Function;
 }) {
+  const listaAtividades: JSX.Element[] = [];
   const toast = useToast();
-  const { setAtividadesFiltradas } = useContext(AtividadeContext);
+  const { setAtividadesFiltradas, atividades } = useContext(AtividadeContext);
   const { tags } = useContext(SociedadeInternaContext);
+  const [cards, setCards] = useState(listaAtividades);
+
+  function ValidaConflitoProgramacoes(data: string, local: string) {
+    console.log(moment(data).format("YYYY-MM-DD"));
+    const atividadeEncontradas = atividades?.filter((ativ) => ativ.dataHora.match(moment(data).format("YYYY-MM-DD").toString()));
+    console.log(atividadeEncontradas);
+    atividadeEncontradas.length >= 1 ?
+      setCards(CardItem(atividadeEncontradas, "sm")) : setCards(listaAtividades);
+  }
+
+  // useEffect(() => {
+  //   filtrarAtividades();
+  // }, [filtro]);
 
   const resolver: Resolver<atividade> = async (values) => {
     return {
@@ -105,8 +122,6 @@ export function NovaAtividade(props: {
   }
 
   const tipoAtividadeWatch = watch("tipoAtividade");
-  const localWatch = watch("local");
-  console.log(tipoAtividadeWatch);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -158,7 +173,7 @@ export function NovaAtividade(props: {
               <Input id="dataHora" variant="flushed" type="datetime-local" placeholder="Data e Hora" {...register('dataHora', {
                 required: 'Preenhca uma data e horário',
                 valueAsDate: true,
-                onChange: (e) => ValidaConflitoProgramacoes(e, "")
+                onChange: (e) => ValidaConflitoProgramacoes(e.target.value, "")
               })} />
               <FormErrorMessage>
                 <span>{errors.dataHora?.message?.toString()}</span>
@@ -215,6 +230,12 @@ export function NovaAtividade(props: {
               </FormErrorMessage>
             </FormControl>
           </WrapItem>
+          {cards.length >= 1 && <WrapItem>
+            <VStack >
+              <Text as={"cite"} size={"sm"} color="tomato"> Existem as seguintes programações na data inserida:</Text>
+              {cards}
+            </VStack>
+          </WrapItem>}
         </Wrap>
       </ModalBody>
       <ModalFooter>
@@ -225,15 +246,4 @@ export function NovaAtividade(props: {
       </ModalFooter>
     </form>
   );
-}
-
-function ValidaConflitoProgramacoes(data: string, local: string) {
-  const atividadeEncontradas = Atividades?.filter((ativ) => ativ.dataHora.match(data));
-  const cards = CardItem(atividadeEncontradas != undefined ? atividadeEncontradas : [], 'sm');
-  return (
-    <Box>
-      <p>Existem essas programações na data inserida</p>
-      {cards}
-    </Box>
-  )
 }

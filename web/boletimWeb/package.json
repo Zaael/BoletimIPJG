@@ -14,7 +14,9 @@
     "@chakra-ui/react": "^2.5.3",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@supabase/supabase-js": "^2.21.0",
+    "@fontsource/bebas-neue": "^5.0.1",
+    "@supabase/auth-ui-react": "^0.4.2",
+    "@supabase/supabase-js": "^2.22.0",
     "docker": "^1.0.0",
     "dotenv": "^16.0.3",
     "framer-motion": "^10.9.0",
@@ -25,6 +27,7 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "use-immer": "^0.9.0",
+    "webfontloader": "^1.6.28",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
