@@ -22,7 +22,7 @@ export function CardAtividade() {
 
 export function CardItem(atividades: atividade[], size: string) {
     const cards = atividades.map((atividade) => (
-        <Box w={'26rem'} maxW={"100%"} key={atividade.id}>
+        <Box w={[200, 300, 400]} maxW={"100%"} key={atividade.id}>
             <div>
                 <Card direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'

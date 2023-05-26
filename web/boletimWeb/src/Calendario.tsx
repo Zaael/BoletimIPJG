@@ -1,5 +1,5 @@
 import { AddIcon } from "@chakra-ui/icons";
-import { Button, useDisclosure, VStack } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure, VStack } from "@chakra-ui/react";
 import { AtividadeContextProvider } from "./contexts/ListaAtividadesContext";
 import { ModalNovaAtividade } from "./NovaAtividade";
 import { PesquisaAtividade } from "./PesquisaAtividade";
@@ -7,7 +7,7 @@ import { PesquisaAtividade } from "./PesquisaAtividade";
 export default function Calendario() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <VStack p={5}>
+        <Flex direction={"column"} alignItems={"center"} justifyItems={"center"} p={5}>
             <AtividadeContextProvider>
                 <PesquisaAtividade></PesquisaAtividade>
                 <Button
@@ -25,6 +25,6 @@ export default function Calendario() {
                     onOpen={onOpen}
                 ></ModalNovaAtividade>
             </AtividadeContextProvider>
-        </VStack>
+        </Flex >
     )
 }

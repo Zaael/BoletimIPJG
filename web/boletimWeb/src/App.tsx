@@ -18,8 +18,7 @@ function App() {
             alignItems={"center"}
         >
             <Cabecalho></Cabecalho>
-            <MenuTabs></MenuTabs>
-            
+            <MenuTabs></MenuTabs>            
         </Box>
     );
 }
