@@ -28,13 +28,15 @@ export function CardItem(atividades: atividade[], size: string) {
                     overflow='hidden'
                     variant='outline'
                     m={"1.5"}
-                    p={"1"}
+                    pt={"1"}
+                    pb={"0"}
                     size={size}
+                    borderColor={atividade.sociedadeInterna?.toLowerCase().concat(".500")}
                 >
                     <LogoSociedadeInterna sigla={atividade.sociedadeInterna ? atividade.sociedadeInterna : ""}></LogoSociedadeInterna>
                     <Stack>
                         <CardBody>
-                            <Text fontSize='md'>{atividade.descricao} {atividade.santaCeia ? <Text as='b'> - Santa Ceia</Text> : ""}
+                            <Text fontSize='md' as='b'>{atividade.descricao} {atividade.santaCeia ? <Text as='b'> - Santa Ceia</Text> : ""}
                             </Text>
                             <Flex>
                                 <Text fontSize='sm'>{moment(atividade.dataHora).format("DD") + "/" + moment(atividade.dataHora).format("MM") + " - " + moment(atividade.dataHora).format("dddd")}</Text>
@@ -47,8 +49,8 @@ export function CardItem(atividades: atividade[], size: string) {
                                 {atividade.preletor ? <CardAtividadeItem Item={atividade.preletor} Tipo="Preletor"></CardAtividadeItem> : ""}
                                 {atividade.banda ? <CardAtividadeItem Item={atividade.banda} Tipo="Banda"></CardAtividadeItem> : ""}
                             </Wrap>
+                            <CardAtividadeButtons></CardAtividadeButtons>
                         </CardBody>
-                        <CardAtividadeButtons></CardAtividadeButtons>
                     </Stack>
                 </Card>
             </div>

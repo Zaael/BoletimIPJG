@@ -47,6 +47,29 @@ export interface Database {
           tipoAtividade?: number | null
         }
       }
+      perfis: {
+        Row: {
+          aniversario: string | null
+          avatar: string | null
+          created_at: string | null
+          id: string
+          nome: string | null
+        }
+        Insert: {
+          aniversario?: string | null
+          avatar?: string | null
+          created_at?: string | null
+          id: string
+          nome?: string | null
+        }
+        Update: {
+          aniversario?: string | null
+          avatar?: string | null
+          created_at?: string | null
+          id?: string
+          nome?: string | null
+        }
+      }
       sociedadeInterna: {
         Row: {
           cor: string | null

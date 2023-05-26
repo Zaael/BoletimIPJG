@@ -1,58 +1,59 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Container, IconButton, theme } from "@chakra-ui/react";
 import { Auth } from "@supabase/auth-ui-react";
+import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { FaGoogle } from "react-icons/fa";
-import { signInWithGoogle, signout, supabase } from "./SupaBaseConnectionAPI";
-import { session } from "./types/atividade";
+import { IoIosLogOut } from "react-icons/io";
+import { signout, supabase } from "./SupaBaseConnectionAPI";
+import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
-
-const sessionInicial: session | null = null
 
 export function Login() {
-    const [session, setSession] = useState(sessionInicial)
+    const [session, setSession] = useState<Session>();
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session)
+            session != null ? setSession(session) : setSession(undefined);
         })
 
         const {
             data: { subscription },
         } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session)
+            session != null ? setSession(session) : setSession(undefined);
         })
 
         return () => subscription.unsubscribe()
     }, [])
 
     if (!session) {
-        return (<Auth supabaseClient={supabase} />)
+        return (
+            <Container maxW={"container.md"} p={"50"} m={"auto"}
+                marginLeft={"auto"}
+                marginRight={"auto"}
+                w={"100%"}
+                alignItems={"center"}>
+                <Auth
+                    supabaseClient={supabase}
+                    socialLayout={"horizontal"}
+                    providers={["google"]}
+                    appearance={{ theme: ThemeSupa }} />
+            </Container>
+        )
     }
     else {
-        return (<div>Logged in!</div>)
+        return (<Navigate to="0" replace={true} />)
     }
-
-    return (
-        <Button
-            leftIcon={<FaGoogle></FaGoogle>}
-            colorScheme="green"
-            size={"md"}
-            onClick={signInWithGoogle}
-        >
-            Login
-        </Button>
-    )
 }
 
 export function LogOut() {
+    var navigate = useNavigate();
+    function deslogar() {
+        signout().then(() => {
+            navigate(0);
+        });
+    }
     return (
-        <Button
-            leftIcon={<FaGoogle></FaGoogle>}
-            colorScheme="green"
-            size={"md"}
-            onClick={signout}
-        >
-            Login
-        </Button>
+        <IconButton aria-label="logout" icon={<IoIosLogOut />} onClick={deslogar}>
+        </IconButton>
     )
 }

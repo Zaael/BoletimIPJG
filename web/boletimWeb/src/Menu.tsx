@@ -1,14 +1,30 @@
-import { Tab, TabList, Tabs } from "@chakra-ui/react";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import Calendario from "./Calendario";
+import Vazia from "./PaginaEmConstrucao";
 
 export function MenuTabs() {
     return (
-        <Tabs isFitted variant='enclosed'>
+        <Tabs isFitted variant='enclosed' defaultIndex={1}>
             <TabList>
-                <Tab isDisabled>Escalas</Tab>
-                <Tab>Calendário</Tab>
-                <Tab isDisabled>Mural de Avisos</Tab>
-                <Tab isDisabled>Caronas</Tab>
+                <Tab >Escalas</Tab>
+                <Tab >Calendário</Tab>
+                <Tab >Mural de Avisos</Tab>
+                <Tab >Caronas</Tab>
             </TabList>
+            <TabPanels>
+                <TabPanel>
+                    <Vazia></Vazia>
+                </TabPanel>
+                <TabPanel>
+                    <Calendario></Calendario>
+                </TabPanel>
+                <TabPanel>
+                    <Vazia></Vazia>
+                </TabPanel>
+                <TabPanel>
+                    <Vazia></Vazia>
+                </TabPanel>
+            </TabPanels>
         </Tabs>
     )
 }

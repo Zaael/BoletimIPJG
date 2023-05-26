@@ -1,5 +1,8 @@
-import { Flex, Heading, Image, useColorMode, Text, Box, Avatar, Spacer, IconButton } from "@chakra-ui/react";
+import { Flex, Heading, Image, useColorMode, Text, Box, Avatar, Spacer, IconButton, Button, HStack, VStack, Tag, TagLabel, Badge, } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Login, LogOut } from "./Login";
+import { getAvatar, InserirPerfil, Perfil, sessaoLogada, signInWithGoogle } from "./SupaBaseConnectionAPI";
 
 export function Cabecalho() {
     const { toggleColorMode, colorMode } = useColorMode();
@@ -48,14 +51,35 @@ export function HeadingIgreja() {
 }
 
 export function AreaLogin() {
+    var avatar = Perfil;   
     return (
         <>
-            <Avatar
-                me="16px"
-                size="xs">
-
-            </Avatar>
-            <Text> Sign in</Text>
+            {
+                sessaoLogada.session != null &&
+                <>
+                    <Tag size='lg' colorScheme="green" borderRadius='full' variant='subtle'>
+                        <Avatar
+                            name="avatarProfile"
+                            me="16px"
+                            size="xs"
+                            ml={-1}
+                            mr={2}
+                            src={avatar != null ? avatar[0]?.avatar?.toString() : ""}
+                        />
+                        <TagLabel>{avatar != null ? avatar[0]?.nome?.split(' ')[0].toString() : ""} </TagLabel>
+                    </Tag>
+                    <LogOut></LogOut>
+                </>
+            }
+            {sessaoLogada.session == null &&
+                // <Button onClick={signInWithGoogle} m={'2'} >
+                //     Login
+                // </Button>
+                <Link to={'/login'}>
+                    <Text>Login</Text>
+                </Link>
+            }
+            {/* <Login></Login> */}
         </>
     )
 }

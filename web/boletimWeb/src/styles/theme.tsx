@@ -1,14 +1,24 @@
 // theme.ts
 
 // 1. import `extendTheme` function
-import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
+import { defineStyleConfig, extendTheme, type ThemeConfig } from '@chakra-ui/react'
 import '@fontsource/bebas-neue';
+import { Component } from 'react';
 
 // 2. Add your color mode config
 const config: ThemeConfig = {
   initialColorMode: 'dark',
   useSystemColorMode: true,
 }
+
+export const Tag = defineStyleConfig({
+  baseStyle: {
+    container: {
+      bg: 'var(--badge-bg)',
+      color: 'var(--badge-color)',
+    },
+  },
+})
 
 // 3. extend the theme
 const theme = extendTheme({
@@ -114,7 +124,7 @@ const theme = extendTheme({
   },
   fonts: {
     logo: `'Bebas Neue', sans-serif`,
-  }
+  },
 });
 
 export default theme

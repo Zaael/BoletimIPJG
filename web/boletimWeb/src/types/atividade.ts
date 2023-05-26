@@ -7,6 +7,8 @@ export type sociedadeInterna = Database['public']['Tables']['sociedadeInterna'][
 
 export type tipoAtividade = Database['public']['Tables']['tipoAtividade']['Row'];
 
+export type perfil = Database['public']['Tables']['perfis']['Row'];
+
 export type filtroAtividade = { filtroTexto: string, isTag: boolean };
 
 export type session = { session: Session | null};

@@ -3,10 +3,12 @@ import { Database } from './types/supabase'
 import { useEffect } from 'react'
 import { utc } from 'moment'
 import moment from 'moment'
+import { perfil } from './types/atividade'
+import { useNavigate } from 'react-router-dom'
 
 const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
 
-export { supabase, Atividades, Tags, TipoAtividades, signInWithGoogle, signout, sessao };
+export { supabase, Atividades, Tags, TipoAtividades, signInWithGoogle, signout, sessao, sessaoLogada, getAvatar, InserirPerfil, Perfil };
 
 var now = Date.now();
 
@@ -25,20 +27,43 @@ const { data: TipoAtividades } = await supabase
     .select("*");
 
 async function signInWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data, error: errrorSign } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
             queryParams: {
                 access_type: 'offline',
                 prompt: 'consent',
             },
+            scopes: "openid profile email",
         },
     })
 }
 
-async function signout() {
-    const { error } = await supabase.auth.signOut()
+async function signout() {    
+    const { error } = await supabase.auth.signOut();    
 }
 
 
+const { data: sessaoLogada, } = await supabase.auth.getSession()
+
+
 const { data: sessao, error } = await supabase.auth.getSession()
+
+const { data: User } = await supabase.auth.getUser();
+
+const { data: Perfil, } = await supabase.from('perfis').select('*').eq('id', User.user?.id);
+async function getAvatar() {
+}
+
+async function InserirPerfil() {
+    const { data: User } = await supabase.auth.getUser();
+    var usuario: perfil = {
+        id: User.user?.id != undefined ? User.user?.id.toString() : "",
+        avatar: User.user?.user_metadata['picture'],
+        nome: User.user?.user_metadata['name'],
+        created_at: null,
+        aniversario: null
+    };
+
+    const { error } = await supabase.from("perfis").upsert([usuario]);
+}
