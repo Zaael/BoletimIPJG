@@ -28,8 +28,8 @@ export function PesquisaAtividade() {
   }
 
   return (
-    <VStack p={5}>
-      <Flex direction={"row"} w={[200, 300, 400]} justifyContent={"center"} gap={4} alignItems="center" >
+    <Flex direction={"column"} w={[200, 500, 700]} justifyContent={"center"} alignItems="center" p={5} m={'auto'} >
+      <Flex direction={"row"} gap={4} >
         <InputGroup maxWidth={"50%"}>
           <InputLeftElement
             pointerEvents="none"
@@ -50,6 +50,6 @@ export function PesquisaAtividade() {
       </Flex >
       <TagsSociedades></TagsSociedades>
       <CardAtividade></CardAtividade>
-    </VStack>
+    </Flex>
   );
 }

@@ -10,7 +10,7 @@ export default function TagsSociedades() {
 
     return (
         <div>
-            <Flex align={"center"} direction={"row"} gap={4} w={['100,200,300']} wrap="wrap" justifyContent={"center"}>
+            <Flex align={"center"} direction={"row"} m={3} gap={4} w={['50,200,300']} wrap="wrap" justifyContent={"center"}>
                 {
                     tags.map((sigla) => (
                         <TagSocidedadeInterna sigla={sigla?.sigla} cor={sigla.cor} key={sigla?.sigla}></TagSocidedadeInterna>

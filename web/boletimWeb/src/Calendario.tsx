@@ -7,7 +7,7 @@ import { PesquisaAtividade } from "./PesquisaAtividade";
 export default function Calendario() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Flex direction={"column"} alignItems={"center"} justifyItems={"center"} p={5}>
+        <Flex direction={"column"} w={'100%'} p={5}>
             <AtividadeContextProvider>
                 <PesquisaAtividade></PesquisaAtividade>
                 <Button

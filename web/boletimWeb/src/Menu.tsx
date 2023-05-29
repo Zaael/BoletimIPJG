@@ -15,7 +15,7 @@ export function MenuTabs() {
                 <TabPanel>
                     <Vazia></Vazia>
                 </TabPanel>
-                <TabPanel>
+                <TabPanel justifyItems={'center'}>
                     <Calendario></Calendario>
                 </TabPanel>
                 <TabPanel>
