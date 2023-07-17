@@ -19,15 +19,19 @@ import {
   Switch,
   VStack,
   Text,
+  Container,
 } from "@chakra-ui/react";
-import { Resolver, useForm, } from "react-hook-form";
-import { atividade } from "./types/atividade";
-import { TipoAtividades, supabase, Atividades } from "./SupaBaseConnectionAPI";
-import { useContext, useState } from "react";
+import { Controller, Resolver, useForm, } from "react-hook-form";
+import { atividade, atividadeInsert } from "./types/atividade";
+import { TipoAtividades, supabase, Atividades, storage } from "./SupaBaseConnectionAPI";
+import { useContext, useEffect, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 import { CardItem } from "./CardAtividade";
 import moment from "moment";
+import "@uppy/core/dist/style.css";
+import "@uppy/drag-drop/dist/style.css";
+import "@uppy/status-bar/dist/style.css";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -36,7 +40,7 @@ export function ModalNovaAtividade(props: {
 }) {
   return (
     <Box>
-      <Modal onClose={() => props.onClose()} isOpen={props.isOpen} size={"xl"}>
+      <Modal onClose={() => props.onClose()} isOpen={props.isOpen} size={["xs", "md", "xl"]}>
         <ModalOverlay />
         <ModalContent aria-modal>
           <ModalHeader>Nova atividade</ModalHeader>
@@ -58,18 +62,12 @@ export function NovaAtividade(props: {
   const [cards, setCards] = useState(listaAtividades);
 
   function ValidaConflitoProgramacoes(data: string, local: string) {
-    console.log(moment(data).format("YYYY-MM-DD"));
     const atividadeEncontradas = atividades?.filter((ativ) => ativ.dataHora.match(moment(data).format("YYYY-MM-DD").toString()));
-    console.log(atividadeEncontradas);
     atividadeEncontradas.length >= 1 ?
       setCards(CardItem(atividadeEncontradas, "sm")) : setCards(listaAtividades);
   }
 
-  // useEffect(() => {
-  //   filtrarAtividades();
-  // }, [filtro]);
-
-  const resolver: Resolver<atividade> = async (values) => {
+  const resolver: Resolver<atividadeInsert> = async (values) => {
     return {
       values: values.descricao ? values : {},
       errors: !values.descricao
@@ -84,19 +82,34 @@ export function NovaAtividade(props: {
   };
 
   const {
+    control,
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<atividade>({ resolver });
+  } = useForm<atividadeInsert>({ resolver });
 
-  function onSubmit(data: atividade) {
+  function onSubmit(data: atividadeInsert) {
+    const {arteFile, ...resto} = data;
+
     return new Promise<void>((resolve) => {
       setTimeout(async () => {
+        
+        const {data: fileUpload} = 
+          await supabase.storage.from("artes")
+          .upload(arteFile[0]?.name? arteFile[0]?.name : "", arteFile[0]);
+        console.log(fileUpload);
+
+        const {data: file} = await storage.from("objects").select("id").eq("name",arteFile[0].name).single();
+        console.log(file);
+
+        resto.arte = file?.id;
+        console.log(resto.arte);
 
         const { data: response, error } = await supabase
           .from('atividades')
-          .insert(data);
+          .insert(resto)
+          .select();
 
         const { data: Atividades } = await supabase
           .from("atividades")
@@ -236,7 +249,16 @@ export function NovaAtividade(props: {
               {cards}
             </VStack>
           </WrapItem>}
-        </Wrap>
+          <WrapItem>
+            <FormControl>
+              <FormLabel htmlFor='arteFile'>Arte de Divulgação</FormLabel>
+              <Input id="arte" type={"file"} variant="flushed" placeholder="Selecione..."{...register('arteFile', {              
+              })} />
+              <FormErrorMessage>
+              </FormErrorMessage>
+            </FormControl>
+          </WrapItem>
+        </Wrap>        
       </ModalBody>
       <ModalFooter>
         <Button type="submit" isLoading={isSubmitting} m={"30px 0"} colorScheme="blue" mr={3}>
@@ -247,3 +269,4 @@ export function NovaAtividade(props: {
     </form>
   );
 }
+

@@ -1,13 +1,9 @@
-import { Box, Button, Divider, VStack, useDisclosure, Tag, TagLabel, } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import { PesquisaAtividade } from "./PesquisaAtividade";
-import { ModalNovaAtividade } from "./NovaAtividade";
-import { AtividadeContextProvider } from "./contexts/ListaAtividadesContext";
+import { Box } from "@chakra-ui/react";
 import { Cabecalho } from "./Header";
 import { MenuTabs } from "./Menu";
 
 function App() {
-    
+
     return (
         <Box
             p={"5"}
@@ -18,7 +14,7 @@ function App() {
             alignItems={"center"}
         >
             <Cabecalho></Cabecalho>
-            <MenuTabs></MenuTabs>            
+            <MenuTabs></MenuTabs>
         </Box>
     );
 }
