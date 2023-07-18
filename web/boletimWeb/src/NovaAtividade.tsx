@@ -29,9 +29,6 @@ import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 import { CardItem } from "./CardAtividade";
 import moment from "moment";
-import "@uppy/core/dist/style.css";
-import "@uppy/drag-drop/dist/style.css";
-import "@uppy/status-bar/dist/style.css";
 
 export function ModalNovaAtividade(props: {
   isOpen: boolean;
@@ -62,7 +59,7 @@ export function NovaAtividade(props: {
   const [cards, setCards] = useState(listaAtividades);
 
   function ValidaConflitoProgramacoes(data: string, local: string) {
-    const atividadeEncontradas = atividades?.filter((ativ) => ativ.dataHora.match(moment(data).format("YYYY-MM-DD").toString()));
+    const atividadeEncontradas = atividades?.filter((ativ) => ativ?.dataHora?.match(moment(data).format("YYYY-MM-DD").toString()));
     atividadeEncontradas.length >= 1 ?
       setCards(CardItem(atividadeEncontradas, "sm")) : setCards(listaAtividades);
   }
@@ -112,7 +109,7 @@ export function NovaAtividade(props: {
           .select();
 
         const { data: Atividades } = await supabase
-          .from("atividades")
+          .from("vw_atividade")
           .select("*")
 
         if (Atividades) {
@@ -243,21 +240,21 @@ export function NovaAtividade(props: {
               </FormErrorMessage>
             </FormControl>
           </WrapItem>
+          <WrapItem>
+            <FormControl>
+              <FormLabel htmlFor='arteFile'>Arte de divulgação</FormLabel>
+              <Input id="arteFile" type={"file"} variant="flushed" placeholder="clique ou arraste a arte de divulgação aqui"{...register('arteFile', {              
+              })} />
+              <FormErrorMessage>
+              </FormErrorMessage>
+            </FormControl>
+          </WrapItem>
           {cards.length >= 1 && <WrapItem>
             <VStack >
               <Text as={"cite"} size={"sm"} color="tomato"> Existem as seguintes programações na data inserida:</Text>
               {cards}
             </VStack>
           </WrapItem>}
-          <WrapItem>
-            <FormControl>
-              <FormLabel htmlFor='arteFile'>Arte de Divulgação</FormLabel>
-              <Input id="arte" type={"file"} variant="flushed" placeholder="Selecione..."{...register('arteFile', {              
-              })} />
-              <FormErrorMessage>
-              </FormErrorMessage>
-            </FormControl>
-          </WrapItem>
         </Wrap>        
       </ModalBody>
       <ModalFooter>

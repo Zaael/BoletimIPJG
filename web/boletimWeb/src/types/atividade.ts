@@ -3,6 +3,8 @@ import { Database } from "./supabase";
 
 export type atividade = Database['public']['Tables']['atividades']['Row'];
 
+export type vw_atividade = Database['public']['Views']['vw_atividade']['Row'];
+
 export type sociedadeInterna = Database['public']['Tables']['sociedadeInterna']['Row'];
 
 export type tipoAtividade = Database['public']['Tables']['tipoAtividade']['Row'];

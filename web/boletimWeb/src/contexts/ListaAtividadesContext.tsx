@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState, Dispatch, Reducer, useEffect } from "react";
-import { atividade, } from "../types/atividade";
+import { atividade, vw_atividade, } from "../types/atividade";
 import { Atividades, } from "../SupaBaseConnectionAPI";
 import { useImmerReducer } from "use-immer";
 
@@ -15,10 +15,10 @@ type AtividadeContextProps = {
 }
 
 type AtividadeContextType = {
-    atividades: atividade[];
-    setAtividades: (newState: atividade[]) => void;
-    atividadesFiltradas: atividade[];
-    setAtividadesFiltradas: (newState: atividade[]) => void;
+    atividades: vw_atividade[];
+    setAtividades: (newState: vw_atividade[]) => void;
+    atividadesFiltradas: vw_atividade[];
+    setAtividadesFiltradas: (newState: vw_atividade[]) => void;
     filtrarAtividades: () => void;
     tagsSelecionadas: {
         ativo: boolean,
@@ -86,9 +86,9 @@ export const AtividadeContextProvider = ({ children }: AtividadeContextProps) =>
         );
     }
 
-    let filtroInput = (atividade: atividade) => filtro.length >= 1 ? atividade.descricao.toString().toLowerCase().includes(filtro.toLowerCase()) : atividade;
-    let filtroTags = (atividade: atividade) => tagsSelecionadas.length >= 1 ? tagsSelecionadas.find(tag => tag.sigla === atividade.sociedadeInterna) : atividade;
-    let filtroDatas = (atividade: atividade) => filtroData.toLocaleString().length >= 1 ? atividade.dataHora.match(filtroData) : atividade;
+    let filtroInput = (atividade: vw_atividade) => filtro.length >= 1 ? atividade?.descricao?.toString().toLowerCase().includes(filtro.toLowerCase()) : atividade;
+    let filtroTags = (atividade: vw_atividade) => tagsSelecionadas.length >= 1 ? tagsSelecionadas.find(tag => tag.sigla === atividade.sociedadeInterna) : atividade;
+    let filtroDatas = (atividade: vw_atividade) => filtroData.toLocaleString().length >= 1 ? atividade?.dataHora?.match(filtroData) : atividade;
 
     return (
         <AtividadeContext.Provider value={{ atividades: atividades, setAtividades, atividadesFiltradas, setAtividadesFiltradas: setAtividadesFiltradas, filtrarAtividades, tagsSelecionadas, dispatchTags: dispatch, filtro, setFiltro: setFiltroInput, filtroData, setFiltroData }}>

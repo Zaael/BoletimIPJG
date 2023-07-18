@@ -5,7 +5,7 @@ import { CardAtividadeButtons } from './CardAtividadeButtons';
 import { useContext } from 'react';
 import { AtividadeContext } from './contexts/ListaAtividadesContext';
 import { LogoSociedadeInterna } from './Marca';
-import { atividade } from './types/atividade';
+import { vw_atividade } from './types/atividade';
 
 
 export function CardAtividade() {
@@ -20,7 +20,7 @@ export function CardAtividade() {
     )
 }
 
-export function CardItem(atividades: atividade[], size: string) {
+export function CardItem(atividades: vw_atividade[], size: string) {
     const cards = atividades.map((atividade) => (
         <Box w={[200, 300, 400]} maxW={"100%"} key={atividade.id}>
             <div>
@@ -49,7 +49,7 @@ export function CardItem(atividades: atividade[], size: string) {
                                 {atividade.preletor ? <CardAtividadeItem Item={atividade.preletor} Tipo="Preletor"></CardAtividadeItem> : ""}
                                 {atividade.banda ? <CardAtividadeItem Item={atividade.banda} Tipo="Banda"></CardAtividadeItem> : ""}
                             </Wrap>
-                            <CardAtividadeButtons></CardAtividadeButtons>
+                            <CardAtividadeButtons arte={atividade.arte} ></CardAtividadeButtons>
                         </CardBody>
                     </Stack>
                 </Card>

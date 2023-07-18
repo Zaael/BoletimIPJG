@@ -19,7 +19,7 @@ export { supabase, storage, Atividades, Tags, TipoAtividades, signInWithGoogle, 
 var now = Date.now();
 
 const { data: Atividades } = await supabase
-    .from("atividades")
+    .from("vw_atividade")
     .select("*")
 //.gte("dataHora",moment(now).format('YYYY-MM-DD HH:mm:ss'));
 

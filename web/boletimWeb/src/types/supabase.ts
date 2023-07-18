@@ -243,45 +243,9 @@ export interface Database {
       }
     }
     Views: {
-      objects_metadata_artes: {
-        Row: {
-          arte: string | null
-          banda: string | null
-          created_at: string | null
-          dataHora: string | null
-          descricao: string | null
-          id: number | null
-          local: string | null
-          metadata: Json | null
-          preletor: string | null
-          santaCeia: boolean | null
-          sociedadeInterna: string | null
-          tipoAtividade: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "atividades_arte_fkey"
-            columns: ["arte"]
-            referencedRelation: "objects"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "atividades_sociedadeInterna_fkey"
-            columns: ["sociedadeInterna"]
-            referencedRelation: "sociedadeInterna"
-            referencedColumns: ["sigla"]
-          },
-          {
-            foreignKeyName: "atividades_tipoAtividade_fkey"
-            columns: ["tipoAtividade"]
-            referencedRelation: "tipoAtividade"
-            referencedColumns: ["cod"]
-          }
-        ]
-      }
       vw_atividade: {
         Row: {
-          arte: Json | null
+          arte: string | null
           atividade: string | null
           banda: string | null
           created_at: string | null
