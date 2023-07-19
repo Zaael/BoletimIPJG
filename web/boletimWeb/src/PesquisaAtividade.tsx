@@ -1,5 +1,5 @@
 import { CalendarIcon, SearchIcon } from "@chakra-ui/icons";
-import { Button, Flex, HStack, Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
+import { Button, Divider, Flex, HStack, Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
 import TagsSociedades from "./TagsSociedades";
 import { CardAtividade } from "./CardAtividade";
 import { useContext, useEffect, useState } from "react";
@@ -28,7 +28,7 @@ export function PesquisaAtividade() {
   }
 
   return (
-    <Flex direction={"column"} w={[200, 500, 700]} justifyContent={"center"} alignItems="center" p={5} m={'auto'} >
+    <Flex direction={"column"} w={[200, 500, 700]} justifyContent={"center"} alignItems="center" p={5} m={'auto'}>
       <Flex direction={"row"} gap={4} >
         <InputGroup maxWidth={"50%"}>
           <InputLeftElement
@@ -50,6 +50,7 @@ export function PesquisaAtividade() {
       </Flex >
       <TagsSociedades></TagsSociedades>
       <CardAtividade></CardAtividade>
+      <Divider></Divider>
     </Flex>
   );
 }

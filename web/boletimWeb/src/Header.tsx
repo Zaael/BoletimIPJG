@@ -8,8 +8,7 @@ export function Cabecalho() {
     const { toggleColorMode, colorMode } = useColorMode();
     return (
         <Flex alignItems={'center'}>
-            <LogoIgreja></LogoIgreja>
-            <HeadingIgreja></HeadingIgreja>
+            <LogoIgreja></LogoIgreja>            
             <Spacer></Spacer>
             <IconButton
                 aria-label="toggle theme"
@@ -28,10 +27,11 @@ export function LogoIgreja() {
     const { toggleColorMode, colorMode } = useColorMode();
     return (
         <Image objectFit="contain"
-            src={colorMode === "dark" ? "./IPJG Minimalista Branco.png" : "./IPJG Minimalista.png"}
-            alt="Logo IPJG"
-            maxW={{ base: "20%", sm: "12" }}
-        ></Image>);
+            src={colorMode === "dark" ? "./LogoBoletimWhite.png" : "./LogoBoletimDark.png"}
+            alt="Logo IPJG"            
+            maxW={{ base: "100%", sm: "36" }}
+        ></Image>
+    );
 }
 
 export function HeadingIgreja() {

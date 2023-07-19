@@ -6,7 +6,7 @@ function App() {
 
     return (
         <Box
-            p={"5"}
+            p={"0 0 0 0"}
             marginLeft={"auto"}
             marginRight={"auto"}
             w={"100%"}
