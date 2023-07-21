@@ -16,8 +16,15 @@ export const Tag = defineStyleConfig({
     container: {
       bg: 'var(--badge-bg)',
       color: 'var(--badge-color)',
-    },
+    }
   },
+})
+
+export const Flex = defineStyleConfig({
+  baseStyle: {    
+    marginLeft: "auto",
+    marginRight: "auto",
+  },  
 })
 
 // 3. extend the theme

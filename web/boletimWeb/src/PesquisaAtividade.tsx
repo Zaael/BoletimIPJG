@@ -28,16 +28,16 @@ export function PesquisaAtividade() {
   }
 
   return (
-    <Flex direction={"column"} w={[200, 500, 700]} justifyContent={"center"} alignItems="center" p={5} m={'auto'}>
-      <Flex direction={"row"} gap={4} >
-        <InputGroup maxWidth={"50%"}>
+    <Flex direction={"column"} p={5} marginLeft={"auto"} marginRight={"auto"}>
+      <Flex direction={"row"} gap={4} marginLeft={"auto"} marginRight={"auto"} >
+        <InputGroup w={["min-content","max-content"]}>
           <InputLeftElement
             pointerEvents="none"
             children={<SearchIcon color="gray.300" />}
           />
           <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
         </InputGroup>
-        <InputGroup maxWidth={"50%"} >
+        <InputGroup w={["min-content","max-content"]} >
           <Input
             placeholder="Selecione a data"
             color={"gray.300"}

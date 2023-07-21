@@ -204,7 +204,7 @@ export function NovaAtividade(props: {
           <WrapItem>
             <FormControl isInvalid={errors.preletor ? true : false}>
               <FormLabel htmlFor='preletor'>Preletor</FormLabel>
-              <Input id="preletor" variant="flushed" placeholder="preletor" {...register('preletor', {
+              <Input id="preletor" variant="flushed" placeholder="Preletor" {...register('preletor', {
                 required: 'Preenhca o preletor',
               })} />
               <FormErrorMessage>
@@ -215,7 +215,7 @@ export function NovaAtividade(props: {
           <WrapItem>
             <FormControl isInvalid={errors.banda ? true : false}>
               <FormLabel htmlFor='banda'>Banda</FormLabel>
-              <Input id="banda" variant="flushed" placeholder="banda" {...register('banda', {
+              <Input id="banda" variant="flushed" placeholder="Banda" {...register('banda', {
                 required: 'Preenhca o banda',
               })} />
               <FormErrorMessage>

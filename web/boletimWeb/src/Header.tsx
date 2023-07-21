@@ -2,14 +2,14 @@ import { Flex, Heading, Image, useColorMode, Text, Box, Avatar, Spacer, IconButt
 import { FaMoon, FaSun } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Login, LogOut } from "./Login";
-import { getAvatar, InserirPerfil, Perfil, sessaoLogada, signInWithGoogle } from "./SupaBaseConnectionAPI";
+import { Perfil, sessaoLogada } from "./SupaBaseConnectionAPI";
 
 export function Cabecalho() {
     const { toggleColorMode, colorMode } = useColorMode();
     return (
-        <Flex alignItems={'center'}>
-            <LogoIgreja></LogoIgreja>            
-            <Spacer></Spacer>
+        <Flex justifyItems={"auto"} width={["container.sm", "container.md", "container.lg"]} marginLeft={"auto"} marginRight={"auto"}>
+            <LogoIgreja></LogoIgreja>
+            <Spacer></Spacer>      
             <IconButton
                 aria-label="toggle theme"
                 rounded="full"
@@ -27,27 +27,12 @@ export function LogoIgreja() {
     const { toggleColorMode, colorMode } = useColorMode();
     return (
         <Image objectFit="contain"
-            src={colorMode === "dark" ? "./LogoBoletimWhite.png" : "./LogoBoletimDark.png"}
-            alt="Logo IPJG"            
-            maxW={{ base: "100%", sm: "36" }}
+            src={colorMode === "dark" ? "./LogoBoletimIPJGBranco.png" : "./LogoBoletimIPJGAzul.png"}
+            alt="Logo IPJG"
+            w={["16", "24", "36"]}
+            maxW={{ base: "100%", sm: "48" }}
         ></Image>
     );
-}
-
-export function HeadingIgreja() {
-    const { toggleColorMode, colorMode } = useColorMode();
-    return (
-        <div>
-            <Box maxW='sm' alignItems='center' overflow='hidden' paddingLeft={2} paddingTop={3} >
-                <Text color={colorMode === "dark" ? "white" : "#2c3c6c"} fontFamily={"logo"} letterSpacing={"0.05em"} fontSize={"1.5em"} marginBottom={"-6"}  >
-                    Boletim
-                </Text>
-                <Text color={colorMode === "dark" ? "white" : "#2c3c6c"} fontFamily={"logo"} letterSpacing={"0.1em"} fontSize={"3em"} marginTop={"-5"}>
-                    IPJG
-                </Text>
-            </Box>
-        </div>
-    )
 }
 
 export function AreaLogin() {
@@ -72,14 +57,10 @@ export function AreaLogin() {
                 </>
             }
             {sessaoLogada.session == null &&
-                // <Button onClick={signInWithGoogle} m={'2'} >
-                //     Login
-                // </Button>
                 <Link to={'/login'}>
                     <Text>Login</Text>
                 </Link>
-            }
-            {/* <Login></Login> */}
+            }            
         </>
     )
 }

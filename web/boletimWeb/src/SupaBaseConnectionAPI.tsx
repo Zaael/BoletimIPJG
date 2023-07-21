@@ -7,7 +7,13 @@ import { perfil } from './types/atividade'
 import { useNavigate } from 'react-router-dom'
 import { DatabaseStorage } from './types/storage'
 
-const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY);
+const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY,{
+    auth:{
+        autoRefreshToken:true,
+        detectSessionInUrl:true,
+    },
+    
+});
 const storage = createClient<DatabaseStorage>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY,{
     db:{
         schema:'storage'
@@ -21,8 +27,7 @@ var now = Date.now();
 const { data: Atividades } = await supabase
     .from("vw_atividade")
     .select("*")
-//.gte("dataHora",moment(now).format('YYYY-MM-DD HH:mm:ss'));
-
+.gte("dataHora",moment(now).format('YYYY-MM-DD HH:mm:ss'));
 
 const { data: Tags } = await supabase
     .from("sociedadeInterna")
@@ -48,7 +53,6 @@ async function signInWithGoogle() {
 async function signout() {
     const { error } = await supabase.auth.signOut();
 }
-
 
 const { data: sessaoLogada, } = await supabase.auth.getSession()
 

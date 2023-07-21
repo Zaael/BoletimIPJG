@@ -10,7 +10,7 @@ export default function TagsSociedades() {
 
     return (
         <div>
-            <Flex align={"center"} direction={"row"} m={3} gap={4} w={['50,200,300']} wrap="wrap" justifyContent={"center"}>
+            <Flex direction={"row"} m={3} gap={2} w={['50,70,80']} maxWidth={"xl"} wrap="wrap" marginLeft={"auto"} marginRight={"auto"} >
                 {
                     tags.map((sigla) => (
                         <TagSocidedadeInterna sigla={sigla?.sigla} cor={sigla.cor} key={sigla?.sigla}></TagSocidedadeInterna>
@@ -46,7 +46,7 @@ function TagSocidedadeInterna(props: { sigla: string, cor: string | null }) {
 
     }
 
-    return <Button onClick={(e) => toggleVariantTag(e.currentTarget.value)}
+    return <Button w={['10,20,30']} onClick={(e) => toggleVariantTag(e.currentTarget.value)}
         key={props.sigla}
         size={'sm'}
         variant={select ? 'solid' : 'outline'}

@@ -9,8 +9,8 @@ function App() {
             p={"0 0 0 0"}
             marginLeft={"auto"}
             marginRight={"auto"}
-            w={"100%"}
-            maxW={"container.lg"}
+            marginTop="2"
+            width={["container.sm", "container.md", "container.lg"]}
             alignItems={"center"}
         >
             <Cabecalho></Cabecalho>

@@ -14,7 +14,7 @@ export function CardAtividade() {
     const cards = CardItem(atividadesFiltradas, 'sm');
 
     return (
-        <Box overflow={'auto'} h={'2xl'}>
+        <Box overflow={'auto'} h={'2xl'} marginLeft={"auto"} marginRight={"auto"}>
             {cards}
         </Box>
     )
