@@ -10,7 +10,7 @@ function App() {
             marginLeft={"auto"}
             marginRight={"auto"}
             marginTop="2"
-            width={["container.sm", "container.md", "container.lg"]}
+            width={["sm", "container.md", "container.lg"]}
             alignItems={"center"}
         >
             <Cabecalho></Cabecalho>

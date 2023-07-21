@@ -4,24 +4,24 @@ import Vazia from "./PaginaEmConstrucao";
 
 export function MenuTabs() {
     return (
-        <Tabs isFitted variant='enclosed' defaultIndex={1} width={["container.sm", "container.md", "container.lg"]}>
-            <TabList width={["container.sm", "container.md", "container.lg"]}>
+        <Tabs isFitted variant='enclosed' defaultIndex={1}>
+            <TabList>
                 <Tab >Escalas</Tab>
                 <Tab >Calendário</Tab>
                 <Tab >Mural</Tab>
                 <Tab >Caronas</Tab>
             </TabList>
             <TabPanels>
-                <TabPanel width={"max-content"}>
+                <TabPanel>
                     <Vazia></Vazia>
                 </TabPanel>
-                <TabPanel width={["container.sm", "container.md", "container.lg"]} marginLeft={"auto"} marginRight={"auto"}>
+                <TabPanel>
                     <Calendario></Calendario>
                 </TabPanel>
-                <TabPanel width={"max-content"}>
+                <TabPanel>
                     <Vazia></Vazia>
                 </TabPanel>
-                <TabPanel width={"max-content"}>
+                <TabPanel>
                     <Vazia></Vazia>
                 </TabPanel>
             </TabPanels>

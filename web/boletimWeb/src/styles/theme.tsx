@@ -27,9 +27,46 @@ export const Flex = defineStyleConfig({
   },  
 })
 
+const breakpoints = {
+  sm: '30em', // 480px
+  md: '48em', // 768px
+  lg: '62em', // 992px
+  xl: '80em', // 1280px
+  '2xl': '96em', // 1536px
+}
+
+const sizes = {
+  sizes: {
+    max: 'max-content',
+    min: 'min-content',
+    full: '100%',
+    '3xs': '14rem',
+    '2xs': '16rem',
+    xs: '20rem',
+    sm: '24rem',
+    md: '28rem',
+    lg: '32rem',
+    xl: '36rem',
+    '2xl': '42rem',
+    '3xl': '48rem',
+    '4xl': '56rem',
+    '5xl': '64rem',
+    '6xl': '72rem',
+    '7xl': '80rem',
+    '8xl': '90rem',
+    container: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+    }
+  }
+}
+
 // 3. extend the theme
 const theme = extendTheme({
   config,
+  breakpoints,
   colors: {
     ump: {//#, #, #, #, #, #, #, #, # // 0050b5, 013373, 012047
       50: "#3E7CC7",

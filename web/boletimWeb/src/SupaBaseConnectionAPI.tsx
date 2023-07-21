@@ -1,10 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from './types/supabase'
-import { useEffect } from 'react'
-import { utc } from 'moment'
 import moment from 'moment'
 import { perfil } from './types/atividade'
-import { useNavigate } from 'react-router-dom'
 import { DatabaseStorage } from './types/storage'
 
 const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY,{
@@ -77,10 +74,3 @@ async function InserirPerfil() {
 
     const { error } = await supabase.from("perfis").upsert([usuario]);
 }
-
-
-// const url = await supabase.storage.from("artes").createSignedUploadUrl("").then(
-//     (value) => {
-//         return value.data?.signedUrl;
-//     }
-// );

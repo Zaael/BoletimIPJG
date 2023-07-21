@@ -14,7 +14,7 @@ export function CardAtividade() {
     const cards = CardItem(atividadesFiltradas, 'sm');
 
     return (
-        <Box overflow={'auto'} h={'2xl'} marginLeft={"auto"} marginRight={"auto"}>
+        <Box overflow={'auto'} marginLeft={"auto"} marginRight={"auto"}>
             {cards}
         </Box>
     )
@@ -22,8 +22,7 @@ export function CardAtividade() {
 
 export function CardItem(atividades: vw_atividade[], size: string) {
     const cards = atividades.map((atividade) => (
-        <Box w={[200, 300, 400]} maxW={"100%"} key={atividade.id}>
-            <div>
+        <Box w={[200, 300, 400]} key={atividade.id}>
                 <Card direction={{ base: 'column', sm: 'row' }}
                     overflow='hidden'
                     variant='outline'
@@ -53,7 +52,6 @@ export function CardItem(atividades: vw_atividade[], size: string) {
                         </CardBody>
                     </Stack>
                 </Card>
-            </div>
         </Box >
     ));
 

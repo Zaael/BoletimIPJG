@@ -1,5 +1,5 @@
 import { CalendarIcon, SearchIcon } from "@chakra-ui/icons";
-import { Button, Divider, Flex, HStack, Input, InputGroup, InputLeftElement, VStack } from "@chakra-ui/react";
+import { Button, Divider, Flex, HStack, Input, InputGroup, InputLeftElement, InputRightElement, VStack } from "@chakra-ui/react";
 import TagsSociedades from "./TagsSociedades";
 import { CardAtividade } from "./CardAtividade";
 import { useContext, useEffect, useState } from "react";
@@ -28,16 +28,17 @@ export function PesquisaAtividade() {
   }
 
   return (
-    <Flex direction={"column"} p={5} marginLeft={"auto"} marginRight={"auto"}>
-      <Flex direction={"row"} gap={4} marginLeft={"auto"} marginRight={"auto"} >
-        <InputGroup w={["min-content","max-content"]}>
-          <InputLeftElement
+    <Flex direction={"column"} paddingTop={2}>
+      <Flex direction={"row"} gap={4} wrap="wrap" width={["sm","md"]} margin={"auto"}>
+        <InputGroup>
+          <InputRightElement
             pointerEvents="none"
+            paddingRight={4}
             children={<SearchIcon color="gray.300" />}
           />
-          <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" />
+          <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" color={"gray.300"}/>
         </InputGroup>
-        <InputGroup w={["min-content","max-content"]} >
+        <InputGroup>
           <Input
             placeholder="Selecione a data"
             color={"gray.300"}

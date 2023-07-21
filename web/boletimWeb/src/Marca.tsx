@@ -12,6 +12,6 @@ export function LogoSociedadeInterna(props: { sigla: string }) {
             m={'2'}
             src={Tags?.find(tag => tag.sigla == props.sigla)?.logo?.toString()}
             alt='Logo Sociedade Interna'
-            maxW={{ base: '100%', sm: '20' }} ></Image>
+            w={["12", "16", "24"]} ></Image>
     )
 }

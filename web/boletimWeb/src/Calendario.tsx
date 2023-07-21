@@ -20,14 +20,8 @@ export default function Calendario() {
         setUsuarioLogado(user.user);
     }
 
-    return (
-        <Flex 
-            direction={"column"}
-            p={5} 
-            marginLeft={"auto"}
-            marginRight={"auto"}
-            width={["container.sm", "container.md", "container.lg"]}
-        >
+    return (             
+        <Flex direction={"column"}>
             <AtividadeContextProvider>
                 <PesquisaAtividade></PesquisaAtividade>
                 {
