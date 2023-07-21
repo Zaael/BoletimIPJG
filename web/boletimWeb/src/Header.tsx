@@ -15,7 +15,7 @@ import { Perfil, sessaoLogada } from "./SupaBaseConnectionAPI";
 export function Cabecalho() {
 	const { toggleColorMode, colorMode } = useColorMode();
 	return (
-		<Flex marginBottom={"1"}>
+		<Flex marginBottom={1} marginLeft={1}>
 			<LogoIgreja></LogoIgreja>
 			<Spacer></Spacer>
 			<IconButton
@@ -45,7 +45,7 @@ export function LogoIgreja() {
 					: "./LogoBoletimIPJGAzul.png"
 			}
 			alt="Logo IPJG"
-			w={["16", "24", "36"]}
+			w={["16", "24", "36"]}			
 		></Image>
 	);
 }

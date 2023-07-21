@@ -29,14 +29,14 @@ export function PesquisaAtividade() {
 
   return (
     <Flex direction={"column"} paddingTop={2}>
-      <Flex direction={"row"} gap={4} wrap="wrap" width={["sm","md"]} margin={"auto"}>
+      <Flex direction={"row"} gap={4} wrap="wrap" width={["xs","sm","md"]} margin={"auto"}>
         <InputGroup>
           <InputRightElement
             pointerEvents="none"
             paddingRight={4}
             children={<SearchIcon color="gray.300" />}
           />
-          <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="tel" placeholder="Pesquisar" color={"gray.300"}/>
+          <Input value={filtro} onChange={(e) => aplicarFiltro(e)} type="text" placeholder="Pesquisar"/>
         </InputGroup>
         <InputGroup>
           <Input

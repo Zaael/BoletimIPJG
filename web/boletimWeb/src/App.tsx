@@ -5,8 +5,7 @@ import { MenuTabs } from "./Menu";
 function App() {
 
     return (
-        <Box
-            p={"0 0 0 0"}
+        <Box            
             marginLeft={"auto"}
             marginRight={"auto"}
             marginTop="2"
