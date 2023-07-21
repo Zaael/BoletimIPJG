@@ -18,8 +18,7 @@ export function CardAtividadeButtons(props: {arte: string | null}) {
     }
 
     return (
-        <Flex minWidth='max-content' overflow={"visible"} alignContent={'end'}>
-            <Spacer />
+        <Flex flex='1' justifyContent={'end'}>            
             <Link href={publicUrl} isExternal>
                 <IconButton icon={<ViewIcon />} variant={'ghost'} aria-label='Visualiar folheto' colorScheme='blue'></IconButton>            
             </Link>

@@ -5,8 +5,6 @@ import {
 	Avatar,
 	Spacer,
 	IconButton,
-	Tag,
-	TagLabel,
 } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { LogIn, LogOut } from "./Login";
@@ -15,7 +13,7 @@ import { Perfil, sessaoLogada } from "./SupaBaseConnectionAPI";
 export function Cabecalho() {
 	const { toggleColorMode, colorMode } = useColorMode();
 	return (
-		<Flex marginBottom={1} marginLeft={1}>
+		<Flex margin={3}>
 			<LogoIgreja></LogoIgreja>
 			<Spacer></Spacer>
 			<IconButton
@@ -23,12 +21,10 @@ export function Cabecalho() {
 				rounded="full"
 				size="sm"
 				onClick={toggleColorMode}
-                marginRight={'2'}
+				marginRight={"2"}
 				icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
 			/>
-            {sessaoLogada.session != null &&
-			    <AvatarLogin></AvatarLogin>
-            }
+			{sessaoLogada.session != null && <AvatarLogin></AvatarLogin>}
 			<AreaLogin></AreaLogin>
 		</Flex>
 	);
@@ -45,7 +41,7 @@ export function LogoIgreja() {
 					: "./LogoBoletimIPJGAzul.png"
 			}
 			alt="Logo IPJG"
-			w={["16", "24", "36"]}			
+			w={["16", "24", "36"]}
 		></Image>
 	);
 }
@@ -63,12 +59,12 @@ function AreaLogin() {
 
 function AvatarLogin() {
 	return (
-			<Avatar
-				name="avatarProfile"				
-				size="sm"                
-                marginRight={'2'}
-				src={Perfil != null ? Perfil[0]?.avatar?.toString() : ""}
-			/>
+		<Avatar
+			name="avatarProfile"
+			size="sm"
+			marginRight={"2"}
+			src={Perfil != null ? Perfil[0]?.avatar?.toString() : ""}
+		/>
 		// <Tag size="lg" colorScheme="green" borderRadius="full" variant="subtle">
 		// 	{/* <TagLabel>
 		// 		{Perfil != null
