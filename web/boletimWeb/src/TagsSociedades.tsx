@@ -1,4 +1,4 @@
-import { Button, HStack, Stack, } from "@chakra-ui/react";
+import { Button, Flex, HStack, Stack, } from "@chakra-ui/react";
 import { useContext, useState, useEffect } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
@@ -10,13 +10,13 @@ export default function TagsSociedades() {
 
     return (
         <div>
-            <Stack align={"center"} direction={"row"} spacing={4}>
+            <Flex direction={"row"} m={3} gap={2} wrap="wrap" justifyContent={"center"}>
                 {
                     tags.map((sigla) => (
                         <TagSocidedadeInterna sigla={sigla?.sigla} cor={sigla.cor} key={sigla?.sigla}></TagSocidedadeInterna>
                     ))
                 }
-            </Stack>
+            </Flex>
         </div>
     );
 }
@@ -46,7 +46,7 @@ function TagSocidedadeInterna(props: { sigla: string, cor: string | null }) {
 
     }
 
-    return <Button onClick={(e) => toggleVariantTag(e.currentTarget.value)}
+    return <Button w={['10,20,30']} onClick={(e) => toggleVariantTag(e.currentTarget.value)}
         key={props.sigla}
         size={'sm'}
         variant={select ? 'solid' : 'outline'}

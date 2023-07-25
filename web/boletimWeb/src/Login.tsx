@@ -2,7 +2,7 @@ import { Button, Container, IconButton, theme } from "@chakra-ui/react";
 import { Auth } from "@supabase/auth-ui-react";
 import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { IoIosLogOut } from "react-icons/io";
+import { IoIosLogIn, IoIosLogOut } from "react-icons/io";
 import { signout, supabase } from "./SupaBaseConnectionAPI";
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { Navigate, redirect, useNavigate } from "react-router-dom";
@@ -54,6 +54,18 @@ export function LogOut() {
     }
     return (
         <IconButton aria-label="logout" icon={<IoIosLogOut />} onClick={deslogar}>
+        </IconButton>
+    )
+}
+
+export function LogIn(){
+    var navigate = useNavigate();
+    function Logar(){
+        navigate("/login");
+    }
+
+    return(
+        <IconButton aria-label="login" icon={<IoIosLogIn />} onClick={Logar}>
         </IconButton>
     )
 }

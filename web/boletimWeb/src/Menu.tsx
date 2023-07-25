@@ -8,7 +8,7 @@ export function MenuTabs() {
             <TabList>
                 <Tab >Escalas</Tab>
                 <Tab >Calendário</Tab>
-                <Tab >Mural de Avisos</Tab>
+                <Tab >Mural</Tab>
                 <Tab >Caronas</Tab>
             </TabList>
             <TabPanels>

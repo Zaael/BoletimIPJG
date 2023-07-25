@@ -19,11 +19,12 @@ import {
   Switch,
   VStack,
   Text,
+  Container,
 } from "@chakra-ui/react";
-import { Resolver, useForm, } from "react-hook-form";
-import { atividade } from "./types/atividade";
-import { TipoAtividades, supabase, Atividades } from "./SupaBaseConnectionAPI";
-import { useContext, useState } from "react";
+import { Controller, Resolver, useForm, } from "react-hook-form";
+import { atividade, atividadeInsert } from "./types/atividade";
+import { TipoAtividades, supabase, Atividades, storage } from "./SupaBaseConnectionAPI";
+import { useContext, useEffect, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 import { CardItem } from "./CardAtividade";
@@ -36,7 +37,7 @@ export function ModalNovaAtividade(props: {
 }) {
   return (
     <Box>
-      <Modal onClose={() => props.onClose()} isOpen={props.isOpen} size={"xl"}>
+      <Modal onClose={() => props.onClose()} isOpen={props.isOpen} size={["xs", "md", "xl"]}>
         <ModalOverlay />
         <ModalContent aria-modal>
           <ModalHeader>Nova atividade</ModalHeader>
@@ -58,18 +59,12 @@ export function NovaAtividade(props: {
   const [cards, setCards] = useState(listaAtividades);
 
   function ValidaConflitoProgramacoes(data: string, local: string) {
-    console.log(moment(data).format("YYYY-MM-DD"));
-    const atividadeEncontradas = atividades?.filter((ativ) => ativ.dataHora.match(moment(data).format("YYYY-MM-DD").toString()));
-    console.log(atividadeEncontradas);
+    const atividadeEncontradas = atividades?.filter((ativ) => ativ?.dataHora?.match(moment(data).format("YYYY-MM-DD").toString()));
     atividadeEncontradas.length >= 1 ?
       setCards(CardItem(atividadeEncontradas, "sm")) : setCards(listaAtividades);
   }
 
-  // useEffect(() => {
-  //   filtrarAtividades();
-  // }, [filtro]);
-
-  const resolver: Resolver<atividade> = async (values) => {
+  const resolver: Resolver<atividadeInsert> = async (values) => {
     return {
       values: values.descricao ? values : {},
       errors: !values.descricao
@@ -84,22 +79,37 @@ export function NovaAtividade(props: {
   };
 
   const {
+    control,
     register,
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<atividade>({ resolver });
+  } = useForm<atividadeInsert>({ resolver });
 
-  function onSubmit(data: atividade) {
+  function onSubmit(data: atividadeInsert) {
+    const {arteFile, ...resto} = data;
+
     return new Promise<void>((resolve) => {
       setTimeout(async () => {
+        
+        const {data: fileUpload} = 
+          await supabase.storage.from("artes")
+          .upload(arteFile[0]?.name? arteFile[0]?.name : "", arteFile[0]);
+        console.log(fileUpload);
+
+        const {data: file} = await storage.from("objects").select("id").eq("name",arteFile[0].name).single();
+        console.log(file);
+
+        resto.arte = file?.id;
+        console.log(resto.arte);
 
         const { data: response, error } = await supabase
           .from('atividades')
-          .insert(data);
+          .insert(resto)
+          .select();
 
         const { data: Atividades } = await supabase
-          .from("atividades")
+          .from("vw_atividade")
           .select("*")
 
         if (Atividades) {
@@ -194,7 +204,7 @@ export function NovaAtividade(props: {
           <WrapItem>
             <FormControl isInvalid={errors.preletor ? true : false}>
               <FormLabel htmlFor='preletor'>Preletor</FormLabel>
-              <Input id="preletor" variant="flushed" placeholder="preletor" {...register('preletor', {
+              <Input id="preletor" variant="flushed" placeholder="Preletor" {...register('preletor', {
                 required: 'Preenhca o preletor',
               })} />
               <FormErrorMessage>
@@ -205,7 +215,7 @@ export function NovaAtividade(props: {
           <WrapItem>
             <FormControl isInvalid={errors.banda ? true : false}>
               <FormLabel htmlFor='banda'>Banda</FormLabel>
-              <Input id="banda" variant="flushed" placeholder="banda" {...register('banda', {
+              <Input id="banda" variant="flushed" placeholder="Banda" {...register('banda', {
                 required: 'Preenhca o banda',
               })} />
               <FormErrorMessage>
@@ -230,13 +240,22 @@ export function NovaAtividade(props: {
               </FormErrorMessage>
             </FormControl>
           </WrapItem>
+          <WrapItem>
+            <FormControl>
+              <FormLabel htmlFor='arteFile'>Arte de divulgação</FormLabel>
+              <Input id="arteFile" type={"file"} variant="flushed" placeholder="clique ou arraste a arte de divulgação aqui"{...register('arteFile', {              
+              })} />
+              <FormErrorMessage>
+              </FormErrorMessage>
+            </FormControl>
+          </WrapItem>
           {cards.length >= 1 && <WrapItem>
             <VStack >
               <Text as={"cite"} size={"sm"} color="tomato"> Existem as seguintes programações na data inserida:</Text>
               {cards}
             </VStack>
           </WrapItem>}
-        </Wrap>
+        </Wrap>        
       </ModalBody>
       <ModalFooter>
         <Button type="submit" isLoading={isSubmitting} m={"30px 0"} colorScheme="blue" mr={3}>
@@ -247,3 +266,4 @@ export function NovaAtividade(props: {
     </form>
   );
 }
+
