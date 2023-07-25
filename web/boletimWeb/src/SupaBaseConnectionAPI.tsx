@@ -69,7 +69,8 @@ async function InserirPerfil() {
         avatar: User.user?.user_metadata['picture'],
         nome: User.user?.user_metadata['name'],
         created_at: null,
-        aniversario: null
+        aniversario: null,
+        email: User.user?.user_metadata['email']
     };
 
     const { error } = await supabase.from("perfis").upsert([usuario]);

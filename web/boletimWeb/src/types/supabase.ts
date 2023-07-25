@@ -102,7 +102,7 @@ export interface Database {
           {
             foreignKeyName: "diretoriaMembros_funcao_fkey"
             columns: ["funcao"]
-            referencedRelation: "tipoFuncao"
+            referencedRelation: "funcoes"
             referencedColumns: ["id"]
           },
           {
@@ -141,11 +141,40 @@ export interface Database {
           }
         ]
       }
+      funcoes: {
+        Row: {
+          created_at: string | null
+          descricao: string
+          id: number
+          tipoFuncao: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          descricao: string
+          id?: number
+          tipoFuncao?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          descricao?: string
+          id?: number
+          tipoFuncao?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funcoes_tipoFuncao_fkey"
+            columns: ["tipoFuncao"]
+            referencedRelation: "tipoFuncao"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       perfis: {
         Row: {
           aniversario: string | null
           avatar: string | null
           created_at: string | null
+          email: string | null
           id: string
           nome: string | null
         }
@@ -153,6 +182,7 @@ export interface Database {
           aniversario?: string | null
           avatar?: string | null
           created_at?: string | null
+          email?: string | null
           id: string
           nome?: string | null
         }
@@ -160,6 +190,7 @@ export interface Database {
           aniversario?: string | null
           avatar?: string | null
           created_at?: string | null
+          email?: string | null
           id?: string
           nome?: string | null
         }
@@ -231,7 +262,7 @@ export interface Database {
           created_at?: string | null
           descricao: string
           id?: number
-          tipoFuncao: number
+          tipoFuncao?: number
         }
         Update: {
           created_at?: string | null
@@ -268,7 +299,18 @@ export interface Database {
       }
     }
     Functions: {
-      [_ in never]: never
+      getmembrodiretoria: {
+        Args: {
+          id_p: string
+        }
+        Returns: string
+      }
+      validate_auth_id: {
+        Args: {
+          id_parameter: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
