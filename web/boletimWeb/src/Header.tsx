@@ -5,8 +5,11 @@ import {
 	Avatar,
 	Spacer,
 	IconButton,
+	LinkBox,
+	LinkOverlay,
 } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { LogIn, LogOut } from "./Login";
 import { Perfil, sessaoLogada } from "./SupaBaseConnectionAPI";
 
@@ -32,17 +35,24 @@ export function Cabecalho() {
 
 export function LogoIgreja() {
 	const { toggleColorMode, colorMode } = useColorMode();
+	var navigate = useNavigate();
+	function Home() {
+		navigate("/");
+	}
 	return (
-		<Image
-			objectFit="contain"
-			src={
-				colorMode === "dark"
-					? "./LogoBoletimIPJGBranco.png"
-					: "./LogoBoletimIPJGAzul.png"
-			}
-			alt="Logo IPJG"
-			w={["16", "24", "36"]}
-		></Image>
+		<LinkBox>
+			<Image
+				objectFit="contain"
+				src={
+					colorMode === "dark"
+						? "./LogoBoletimIPJGBranco.png"
+						: "./LogoBoletimIPJGAzul.png"
+				}
+				alt="Logo IPJG"
+				w={["16", "24", "36"]}
+			></Image>
+			<LinkOverlay onClick={Home}></LinkOverlay>
+		</LinkBox>
 	);
 }
 
