@@ -1,4 +1,6 @@
-import { Box, Container, Heading, Text } from "@chakra-ui/react";
+import { Box, Container, Heading, IconButton, Text } from "@chakra-ui/react";
+import { IoMdPaper } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 import { Cabecalho } from "../Header";
 export function Politica() {
 	return (
@@ -160,5 +162,21 @@ export function Politica() {
 				15:24
 			</Text>
 		</Box>
+	);
+}
+
+export function ToPolicy() {
+	var navigate = useNavigate();
+	function Logar() {
+		navigate("/politicaprivacidade");
+	}
+
+	return (
+		<IconButton
+			aria-label="login"
+			icon={<IoMdPaper />}
+			onClick={Logar}
+			size={"xs"}
+		></IconButton>
 	);
 }
