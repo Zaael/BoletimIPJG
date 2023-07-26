@@ -10,6 +10,7 @@ import {
 	CardHeader,
 	CardFooter,
 	Heading,
+	Badge,
 } from "@chakra-ui/react";
 import moment from "moment";
 import { CardAtividadeItem } from "./CardAtividadeItem";
@@ -25,7 +26,12 @@ export function CardAtividade() {
 	const cards = CardItem(atividadesFiltradas, "sm");
 
 	return (
-		<Box overflow={"auto"} marginLeft={"auto"} marginRight={"auto"}>
+		<Box
+			overflow={"scroll"}
+			marginLeft={"auto"}
+			marginRight={"auto"}
+			height={"lg"}
+		>
 			{cards}
 		</Box>
 	);
@@ -35,7 +41,7 @@ export function CardItem(atividades: vw_atividade[], size: string) {
 	const cards = atividades.map((atividade) => (
 		<Box w={[300, 300, 400]} key={atividade.id}>
 			<Card
-				overflow="hidden"
+				overflow="scroll"
 				variant="outline"
 				m={"1.5"}
 				size={size}
@@ -54,9 +60,17 @@ export function CardItem(atividades: vw_atividade[], size: string) {
 						></LogoSociedadeInterna>
 						<Box w="100%" p={4}>
 							<Heading size="sm">
-								{atividade.descricao}{" "}
+								{atividade.descricao}
 								{atividade.santaCeia ? (
-									<Text as="b"> - Santa Ceia</Text>
+									<Badge
+										colorScheme={"red"}
+										variant="subtle"
+										ml="1"
+										size={"12"}
+										pt={1}
+									>
+										Santa Ceia
+									</Badge>
 								) : (
 									""
 								)}
@@ -122,7 +136,7 @@ export function CardItem(atividades: vw_atividade[], size: string) {
 	return cards;
 }
 
-function ConfiguraMomentJs() {
+export function ConfiguraMomentJs() {
 	moment.locale("pt-br");
 	moment.updateLocale("en", {
 		monthsShort: [
