@@ -27,7 +27,7 @@ import { useContext, useEffect, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
 import { SociedadeInternaContext } from "./contexts/SociedadesInternasContext";
 import { CardItem, ConfiguraMomentJs } from "./CardAtividade";
-import moment from "moment";
+import moment, { now } from "moment";
 
 export function ModalNovaAtividade(props: {
 	isOpen: boolean;
@@ -93,6 +93,7 @@ export function NovaAtividade(props: { onClose: Function }) {
 	} = useForm<atividadeInsert>({ resolver });
 
 	function onSubmit(data: atividadeInsert) {
+		var now = Date.now();
 		const { arteFile, ...resto } = data;
 		console.log(resto.dataHora);
 		return new Promise<void>((resolve) => {
@@ -120,7 +121,8 @@ export function NovaAtividade(props: { onClose: Function }) {
 
 				const { data: Atividades } = await supabase
 					.from("vw_atividade")
-					.select("*");
+					.select("*")
+					.gte("dataHora", moment(now).format("YYYY-MM-DD HH:mm:ss"));
 
 				if (Atividades) {
 					setAtividadesFiltradas(Atividades);
