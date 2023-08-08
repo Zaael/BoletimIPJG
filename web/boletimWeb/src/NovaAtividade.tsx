@@ -21,7 +21,7 @@ import {
 	GridItem,
 } from "@chakra-ui/react";
 import { Resolver, useForm } from "react-hook-form";
-import { atividadeInsert } from "./types/atividade";
+import { atividade, atividadeInsert, vw_atividade } from "./types/atividade";
 import { TipoAtividades, supabase, storage } from "./SupaBaseConnectionAPI";
 import { useContext, useEffect, useState } from "react";
 import { AtividadeContext } from "./contexts/ListaAtividadesContext";
@@ -59,16 +59,36 @@ export function NovaAtividade(props: { onClose: Function }) {
 		useContext(AtividadeContext);
 	const { tags } = useContext(SociedadeInternaContext);
 	const [cards, setCards] = useState(listaAtividades);
+	const [btnDisabled, setBtnDisabled] = useState(false);
+
 	ConfiguraMomentJs();
 
 	function ValidaConflitoProgramacoes(data: string) {
-		console.log(data);
 		const atividadeEncontradas = atividades?.filter((ativ) =>
 			ativ?.dataHora?.match(moment(data).format("YYYY-MM-DD").toString())
 		);
+		var HoraIgual = VerificaHoraAtividade(data, atividadeEncontradas);
+
+		console.log(HoraIgual);
+
 		atividadeEncontradas.length >= 1
 			? setCards(CardItem(atividadeEncontradas, "sm"))
 			: setCards(listaAtividades);
+
+		setBtnDisabled(HoraIgual);
+	}
+
+	function VerificaHoraAtividade(
+		data: string,
+		listaAtividadesEncontradas: vw_atividade[]
+	) {
+		var dataIgual: boolean = false;
+
+		let compt = listaAtividadesEncontradas?.filter((ativ) =>
+			ativ?.dataHora?.match(moment(data).toString())
+		);
+		dataIgual ?? compt.length >= 1;
+		return dataIgual;
 	}
 
 	const resolver: Resolver<atividadeInsert> = async (values) => {
@@ -93,8 +113,9 @@ export function NovaAtividade(props: { onClose: Function }) {
 	} = useForm<atividadeInsert>({ resolver });
 
 	function onSubmit(data: atividadeInsert) {
+		var now = Date.now();
 		const { arteFile, ...resto } = data;
-		console.log(resto.dataHora);
+
 		return new Promise<void>((resolve) => {
 			setTimeout(async () => {
 				if (arteFile != null && arteFile.length > 0) {
@@ -370,6 +391,7 @@ export function NovaAtividade(props: { onClose: Function }) {
 					m={"30px 0"}
 					colorScheme="blue"
 					mr={3}
+					isDisabled={btnDisabled}
 				>
 					Salvar
 				</Button>
